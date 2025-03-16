@@ -3,6 +3,22 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignore .a files, except lib.a
+*.a
+!lib.a
+
+# Ignore TODO files in this directory, but not in subdirectories
+TODO
+
+# Ignore everything in the build directory
+build/
+
+# Ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# Ignore all pdf files in doc/ and its subdirectories
+doc/**/*.pdf
+
 # C extensions
 *.so
 
