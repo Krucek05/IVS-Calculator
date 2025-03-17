@@ -1,0 +1,47 @@
+Tento soubor bude obsahovat:
+
+-- stanovené termíny,
+-- přidělení úkolů na projektu jednotlivým řešitelům,
+-- zvolené komunikační kanály pro komunikaci v týmu a stanovená pravidla pro komunikaci (jsou-li nějaká),
+-- zvolený systém pro správu verzí a hosting + informaci, jak do repozitáře mohou nahlédnout vyučující/cvičící (viz níže).
+
+Alternativně lze odevzdat archiv xlogin01_xlogin02_xlogin03_xlogin04_plan.zip, který bude obsahovat libovolný počet souborů xlogin01_xlogin02_xlogin03_xlogin04_plan* ("*" zastupuje libovolný počet libovolných znaků, tedy např. ".mpp" či "01.jpg"), přičemž plán zde může být vytvořený v MS Projectu či jiném programu (není-li daný program ve škole dostupný, je nutno odevzdat i exportovanou verzi v PDF či jpg).
+
+
+Jazyk : Python
+Verzovancí system : Git
+Dokumentácia : Doxygen
+Komunikačný kanál : Discord,messenger,osobne
+Veduci : xrucekk00
+Platforma : Linux Ubuntu 64bit
+
+Rozdelenie uloh :
+
+	xfigurf00 - matematicka kniznica - pokrocile funkcionality, profiling, manual
+
+	xkucikm00 - Makefile,testovanie na virtualke , instalovanie
+
+	xrucekk00 - TDD,github spojazdnenie,ReadMe,Kontrola vsetkeho
+
+	xseryra00 - GUI, zakladne funkcionality
+
+Terminy :
+   Rozdelenie uloh/plan vyvoja - 10.3.
+   Inicializacia Gitu - 17.3.
+   TDD - 29.3.
+   Mat kniznica - 6.4. - prototyp
+   GUI - 6.4. - prototyp  
+   Makefile - 13.4.
+   Mat kniznica - 13.4. - finalna verzia
+   Profiling - 20.4. - finalna verzia
+   GUI - 20.4. - finalna verzia
+   ReadMe - 20.4. 
+   Mockup - 27.4.
+   Manual - 27. 4.
+   Instalacia - 28. 4. 
+   Release kontrola - 30.4.
+
+Odovzdania :
+   20.3. 7:00 - stanovené termíny,přidělení úkolů na projektu jednotlivým řešitelům...
+   1. 5. 2025 7:00 - finalny produkt
+   15. 5. 2025 7:00 - feedback
