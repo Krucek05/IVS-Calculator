@@ -1,12 +1,4 @@
-Tento soubor bude obsahovat:
-
--- stanovené termíny,
--- přidělení úkolů na projektu jednotlivým řešitelům,
--- zvolené komunikační kanály pro komunikaci v týmu a stanovená pravidla pro komunikaci (jsou-li nějaká),
--- zvolený systém pro správu verzí a hosting + informaci, jak do repozitáře mohou nahlédnout vyučující/cvičící (viz níže).
-
-Alternativně lze odevzdat archiv xlogin01_xlogin02_xlogin03_xlogin04_plan.zip, který bude obsahovat libovolný počet souborů xlogin01_xlogin02_xlogin03_xlogin04_plan* ("*" zastupuje libovolný počet libovolných znaků, tedy např. ".mpp" či "01.jpg"), přičemž plán zde může být vytvořený v MS Projectu či jiném programu (není-li daný program ve škole dostupný, je nutno odevzdat i exportovanou verzi v PDF či jpg).
-
+IVS  plán
 
 Jazyk : Python
 Verzovancí system : Git
@@ -17,17 +9,44 @@ Platforma : Linux Ubuntu 64bit
 
 Rozdelenie uloh :
 
-	xfigurf00 - matematicka kniznica - pokrocile funkcionality, profiling, manual
+   xrucekk00 -> Kristián Rúček
+             - TDD
+             - Github spojazdnenie + sprava 
+             - ReadMe
+             - Kontrola vyvoja
+             - Dokumentácia
+             - Hodnotenie
+             - Mockup
 
-	xkucikm00 - Makefile,testovanie na virtualke , instalovanie
+	xfigurf00 -> Filip Figúr
+             - Matematicka kniznica
+             - Profiling
+             - Hodnotenie
+             - Mockup
 
-	xrucekk00 - TDD,github spojazdnenie,ReadMe,Kontrola vsetkeho
+	xkucikm00 -> Miroslav Kučík
+             - Makefile
+             - Testovanie na VirtualBoxe
+             - Instalacia 
+             - Doxygen setup
+             - Hodnotenie
+             - Mockup
 
-	xseryra00 - GUI, zakladne funkcionality
+	xseryra00 -> Rastislav Šerý
+             - GUI
+             - Hodnotenie
+             - Mockup
+
+Pravidla :
+   1. Kazda aktivita je kontrolovana minimalne jednou dalsou osobou 
+   2. Kazdy pondelok vecer +-hodinovy(pripadne viac) scram, informovanie timu o zmenach, problemoch, kontrola dodrziavania planu...
+   3. Priebezna komunikacia cez vlastny discord kanal
+   4. Neaktivita/nekomunikacia dlhsia ako tyzden -> zrazka bodov
 
 Terminy :
    Rozdelenie uloh/plan vyvoja - 10.3.
    Inicializacia Gitu - 17.3.
+   Finalne rozdelenie uloh/plan vyvoja - 20.3.
    TDD - 29.3.
    Mat kniznica - 6.4. - prototyp
    GUI - 6.4. - prototyp  
@@ -40,8 +59,14 @@ Terminy :
    Manual - 27. 4.
    Instalacia - 28. 4. 
    Release kontrola - 30.4.
+   Hodnotenie - 31.4.
 
 Odovzdania :
    20.3. 7:00 - stanovené termíny,přidělení úkolů na projektu jednotlivým řešitelům...
    1. 5. 2025 7:00 - finalny produkt
    15. 5. 2025 7:00 - feedback
+
+- Do repozitara sa da nahliadnut tu :
+   https://github.com/Krucek05/IVS-Calculator
+   *email ivs.kontrola@gmail.com by mal mat pristup ku git repositaru
+
