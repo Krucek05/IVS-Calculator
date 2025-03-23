@@ -14,7 +14,7 @@ Rozdelenie uloh :
              - Github spojazdnenie + sprava 
              - ReadMe
              - Kontrola vyvoja
-             - Dokumentácia
+             - Manual
              - Hodnotenie
              - Mockup
 
@@ -68,5 +68,5 @@ Odovzdania :
 
 - Do repozitara sa da nahliadnut tu :
    https://github.com/Krucek05/IVS-Calculator
-   *email ivs.kontrola@gmail.com by mal mat pristup ku git repositaru
+   *email ivs.kontrola@gmail.com by mal mat pristup ku git repozitaru
 
