@@ -4,10 +4,19 @@ from PyQt6.QtWidgets import (QApplication, QGridLayout,
         QSizePolicy)
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtCore import Qt
+#from math_library import add, sub, multiply, divide, power, n_root, factorial
 
+
+#treba osetrit ze nemoze byt 0233, potom pouzit float(arg.replace(",",".")), osetrit ked niekto stlaci , ako prvu vec
+#pravdepodobne by som zacal auto 0 a ked cosi ine klknes sa premeni
+#potom este ked mas 12345+54321 a znovu das + tak ti to vypocita a vysledok da jak prvy argument
+#ale asi to nesmie fungovat pre mocninu odmocninu a factorial
+# vymyslet ako zobrazit
+#a^x a odm(x,a)
 
 class Window(QWidget):
 
+    isFloat = False
     argumentProcessed = 1
     firstArgument = ""
     secondArgument = ""
@@ -27,18 +36,46 @@ class Window(QWidget):
                 self.argumentProcessed = 1
                 self.firstArgument = ""
                 self.operation = ""
+                self.isFloat = False
                 self.displayText.clear()
             else:
                 self.secondArgument = ""
                 self.displayText.setText(self.firstArgument + self.operation)
         else:
             self.firstArgument = ""
+            self.isFloat = False
             self.displayText.clear()
 
     def operationClicked(self, operation):
         self.operation = operation
         self.argumentProcessed = 2
         self.displayText.setText(self.firstArgument + self.operation)
+
+    def commaClicked(self):
+        self.isFloat = True
+        if self.argumentProcessed == 1:
+            self.firstArgument += ','
+            self.displayText.setText(self.firstArgument)
+        else:
+            self.secondArgument += ','
+            self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+
+    def factorialClicked(self):
+        if self.secondArgument == "":
+            if self.isFloat:
+                print("")
+                #self.result = factorial(float(self.firstArgument.replace(",", ".")))
+            else:
+                print("")
+                #self.result = factorial(int(self.firstArgument))
+
+    def isResult(self, newOperation):
+        self.firstArgument = self.result
+        self.operation = newOperation
+        self.secondArgument = ""
+        self.result = ""
+
+
     def buttonClick(self):
         buttonText = self.sender().text()
 
@@ -48,9 +85,19 @@ class Window(QWidget):
         elif '0' <= buttonText and buttonText <= '9':
            self.numberClicked(buttonText)
 
+        elif buttonText == ",":
+            self.commaClicked()
+
+        elif buttonText == "!":
+            self.factorialClicked()
+
+
         else:
             if self.secondArgument == "":
                 self.operationClicked(buttonText)
+
+
+
 
 
 
