@@ -7,6 +7,54 @@ from PyQt6.QtCore import Qt
 
 
 class Window(QWidget):
+
+    argumentProcessed = 1
+    firstArgument = ""
+    secondArgument = ""
+    operation = ""
+    result = ""
+
+    def numberClicked(self, number):
+        if self.argumentProcessed == 1:
+            self.firstArgument += number
+            self.displayText.setText(self.firstArgument + self.operation)
+        else:
+            self.secondArgument += number
+            self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+    def clearClicked(self):
+        if self.argumentProcessed == 2:
+            if self.secondArgument == "":
+                self.argumentProcessed = 1
+                self.firstArgument = ""
+                self.operation = ""
+                self.displayText.clear()
+            else:
+                self.secondArgument = ""
+                self.displayText.setText(self.firstArgument + self.operation)
+        else:
+            self.firstArgument = ""
+            self.displayText.clear()
+
+    def operationClicked(self, operation):
+        self.operation = operation
+        self.argumentProcessed = 2
+        self.displayText.setText(self.firstArgument + self.operation)
+    def buttonClick(self):
+        buttonText = self.sender().text()
+
+        if buttonText == "C":
+            self.clearClicked()
+
+        elif '0' <= buttonText and buttonText <= '9':
+           self.numberClicked(buttonText)
+
+        else:
+            if self.secondArgument == "":
+                self.operationClicked(buttonText)
+
+
+
+
     def __init__(self):
         super().__init__()
 
@@ -27,7 +75,6 @@ class Window(QWidget):
         self.displayText.setFixedHeight(70)
         simpleLayout.addWidget(self.displayText)
 
-
         gridLayout = QGridLayout()
         gridLayout.setContentsMargins(0, 0, 0, 0)
         gridLayout.setSpacing(3)
@@ -44,6 +91,8 @@ class Window(QWidget):
             button = QPushButton(buttonText)
             button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             button.setFont(font)
+            # noinspection PyUnresolvedReferences
+            button.clicked.connect(self.buttonClick)
             button.setStyleSheet("QPushButton {"
                                  "background-color: #333333; color: white;"
                                  "border-radius: 4px; border:none;}"
@@ -68,6 +117,7 @@ def main():
     sys.exit(app.exec())
 
 if __name__ == '__main__':
+
     main()
 
 
