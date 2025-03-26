@@ -12,7 +12,7 @@
 
 import unittest
 import math
-from math_library import add, sub, multiply, divide,power,n_root,factorial
+from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
 class CalculatorBasicFunctions(unittest.TestCase) :
   """ 
@@ -127,12 +127,12 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertTrue(math.isclose(n_root(256, 8), 2, rel_tol=1e-9))
     self.assertTrue(math.isclose(n_root(1, 3), 1, rel_tol=1e-9))
     self.assertTrue(math.isclose(n_root(625, 4), 5, rel_tol=1e-9))
-    self.assertRaises(ValueError, n_root, -16, 0.5)  # should raise error
-    self.assertRaises(ValueError, n_root, -1, 3)  #should raise error
+    self.assertRaises(ValueError, n_root, -16, 0.5)  # should raise error (floats are not allowed)
+    self.assertRaises(ValueError, n_root, -1, 3)  #should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 0, 0)  # should raise error
-    self.assertRaises(ValueError, n_root, -1, -1)  # should raise error
+    self.assertRaises(ValueError, n_root, -1, -1)  # should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 1, 0)  # should raise error
-    self.assertRaises(ValueError, n_root, 0, -3)  # should raise error
+    self.assertRaises(ValueError, n_root, 0, -3)  # should raise error (negatives are not allowed)
     
   def test_factorial(self):
     """
@@ -144,10 +144,29 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertEqual(factorial(10), 3628800)
     self.assertEqual(factorial(20), 2432902008176640000)
     self.assertRaises(ValueError, factorial, 21) # should raise error, too big
-    self.assertRaises(ValueError, factorial, -1)  # should raise error
-    self.assertRaises(ValueError, factorial, -10) # should raise error
-    self.assertRaises(ValueError, factorial, 2.5) # should raise error
+    self.assertRaises(ValueError, factorial, -1)  # should raise error (negatives are not allowed)
+    self.assertRaises(ValueError, factorial, -10) # should raise error (negatives are not allowed)
+    self.assertRaises(ValueError, factorial, 2.5) # should raise error (floats are not allowed)
     
+  def test_modulo(self):
+    """
+    @brief Test the modulo function with equivalence classes.
+    """
+    self.assertEqual(modulo(0,1), 0)
+    self.assertEqual(modulo(5.2), 1)
+    self.assertEqual(modulo(5,5), 0)
+    self.assertEqual(modulo(10,1), 0)
+    self.assertEqual(modulo(2000,7), 5)
+    self.assertEqual(modulo(-1, 2), -1) 
+    self.assertEqual(modulo(2, -3), 2)
+    self.assertEqual(modulo(-40, -6), -4) 
+    self.assertEqual(modulo(999, 1000), 999)
+    self.assertEqual(modulo(1000, 999), 1)
+    self.assertEqual(modulo(10**10, 3), 1)
+    self.assertTrue(math.isclose(modulo(5.5, 2.2), 1.1, rel_tol=1e-9))
+    self.assertTrue(math.isclose(modulo(-7.5, 3.2), 2.1, rel_tol=1e-9))
+    self.assertTrue(math.isclose(modulo(0.3, 0.1), 0.0, rel_tol=1e-9))
+    self.assertRaises(ValueError, modulo, 5645, 0)  # Should raise an error (division by zero)
 
   if __name__ == "__main__":
     unittest.main()
