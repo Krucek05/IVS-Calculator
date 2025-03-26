@@ -7,9 +7,7 @@ from PyQt6.QtCore import Qt
 #from math_library import add, sub, multiply, divide, power, n_root, factorial
 
 
-#treba osetrit ze nemoze byt 0233, potom pouzit float(arg.replace(",",".")), osetrit ked niekto stlaci , ako prvu vec
-#pravdepodobne by som zacal auto 0 a ked cosi ine klknes sa premeni
-#potom este ked mas 12345+54321 a znovu das + tak ti to vypocita a vysledok da jak prvy argument
+# potom pouzit float(arg.replace(",",".")),
 #ale asi to nesmie fungovat pre mocninu odmocninu a factorial
 # vymyslet ako zobrazit
 #a^x a odm(x,a)
@@ -25,6 +23,8 @@ class Window(QWidget):
     operation = ""
     result = "123"
 
+    def displayUpdate(self):
+        self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
 
     def equalsClicked(self):
         if self.operation == "+":
@@ -42,67 +42,80 @@ class Window(QWidget):
         elif self.operation == "aˣ":
             #self.result = power(self.firstArgument, self.secondArgument)
             print("power")
-        elif self.operation == "√":
+        elif self.operation == "ˣ√":
             #self.result == n_root(self.firstArgument, self.secondArgument)
             print("root")
         elif self.operation == "!":
             #self.result = factorial(self.firstArgument)
             print("factorial")
-
+        else:
+            #self.result = mod(self.firstArgument, self.secondArgument)
+            print("modulo")
 
     def numberClicked(self, number):
         if self.argumentProcessed == 1:
+            if self.firstArgument == "0":
+                self.firstArgument = ""
             self.firstArgument += number
-            self.displayText.setText(self.firstArgument + self.operation)
         elif not self.isFactorial:
+            if self.secondArgument == "0":
+                self.secondArgument = ""
             self.secondArgument += number
-            self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
 
+    def clear(self):
+        self.argumentProcessed = 1
+        self.firstArgument = ""
+        self.operation = ""
+        self.firstArgComma = False
 
     def clearClicked(self):
         if self.argumentProcessed == 2:
             if self.secondArgument == "":
-                self.argumentProcessed = 1
-                self.firstArgument = ""
-                self.operation = ""
-                self.firstArgComma = False
-                self.displayText.clear()
+                self.clear()
             else:
                 self.secondArgument = ""
                 self.secondArgComma = False
-                self.displayText.setText(self.firstArgument + self.operation)
         else:
-            self.firstArgument = ""
-            self.firstArgComma = False
-            self.displayText.clear()
+            self.clear()
 
 
     def operationClicked(self, operation):
         self.operation = operation
+        self.isFactorial = False
         self.argumentProcessed = 2
-        self.displayText.setText(self.firstArgument + self.operation)
-
 
     def commaClicked(self):
-        if self.argumentProcessed == 1 and not self.firstArgComma:
+        if self.argumentProcessed == 1 and not self.firstArgComma and self.firstArgument != "":
             self.firstArgComma = True
             self.firstArgument += ','
-            self.displayText.setText(self.firstArgument)
-        elif self.argumentProcessed == 2 and not self.secondArgComma:
+        elif self.argumentProcessed == 2 and not self.secondArgComma and self.secondArgument != "":
             self.secondArgComma = True
             self.secondArgument += ','
-            self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
 
     def isResult(self, newOperation):
         self.firstArgument = self.result
         self.operation = newOperation
+        self.isFactorial = False
         self.secondArgument = ""
         self.result = ""
-        self.displayText.setText(self.firstArgument + self.operation)
 
+    def zero(self, buttonText):
+        if self.argumentProcessed == 1 and buttonText != self.firstArgument:
+            self.numberClicked(buttonText)
+        elif self.argumentProcessed == 2 and buttonText != self.secondArgument:
+            self.numberClicked(buttonText)
 
+    def factorial(self, buttonText):
+        if not self.firstArgComma and not self.secondArgument:
+            self.isFactorial = True
+            self.operation = buttonText
+            self.argumentProcessed = 2
 
-
+    def pi(self):
+        if self.argumentProcessed == 1:
+            self.firstArgument = "3.14159"
+        else:
+            self.secondArgument = "3.14159"
 
     def buttonClick(self):
         buttonText = self.sender().text()
@@ -110,29 +123,41 @@ class Window(QWidget):
         if buttonText == "C":
             self.clearClicked()
 
-        elif '0' <= buttonText and buttonText <= '9':
+        elif '0' < buttonText and buttonText <= '9':
            self.numberClicked(buttonText)
+
+        elif buttonText == '0':
+            self.zero(buttonText)
 
         elif buttonText == ",":
             self.commaClicked()
 
         elif buttonText == "!":
-            if not self.firstArgComma:
-                self.isFactorial = True
-                self.operation = buttonText
-                self.argumentProcessed = 2
-                self.displayText.setText(self.firstArgument + self.operation)
+            self.factorial(buttonText)
 
         elif buttonText == "=":
             self.equalsClicked()
             self.isResult("")
 
+        elif buttonText == "²√":
+#            self.result = n_root(int(self.firstArgument), 2)
+            self.isResult("")
+
+        elif buttonText == "a²":
+#           self.reult = power(self.firstArgument, 2)
+            self.isResult("")
+
+        elif buttonText == 'π':
+            self.pi()
+
         else:
             if self.secondArgument == "":
                 self.operationClicked(buttonText)
-            else:
+            elif buttonText != "aˣ" or buttonText != "ˣ√":
                 self.equalsClicked()
                 self.isResult(buttonText)
+
+        self.displayUpdate()
 
 
 
