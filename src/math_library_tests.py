@@ -62,7 +62,7 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     """
     self.assertEqual(multiply(1, 2), 2)
     self.assertEqual(multiply(1000, 157), 157000)
-    self.assertEqual(multiply(110545545, 4454515), 492439722629717)
+    self.assertEqual(multiply(110545545, 4454515), 492426788385675)
     self.assertEqual(multiply(2147483647, 1), 2147483647)
     self.assertEqual(multiply(-1, 1), -1)
     self.assertEqual(multiply(0, 0), 0)
@@ -78,8 +78,8 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     """
     @brief Test the divide function with equivalence classes.
     """
-    self.assertEqual(divide(1, 2), 0.5)# to check precision
-    self.assertEqual(divide(110545545, 4454515), 24.8)
+    self.assertEqual(divide(1, 2), 0.5)
+    self.assertTrue(math.isclose(multiply(110545545, 4454515), 24,81651650067404, rel_tol=1e-9))
     self.assertEqual(divide(2147483647, 1), 2147483647)
     self.assertEqual(divide(-1, 1), -1)
     self.assertEqual(divide(0, 1), 0)
@@ -109,7 +109,7 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertEqual(power(0, 0), 1)
     self.assertEqual(power(-2, 3), -8)
     self.assertEqual(power(2, -3), 0.125)
-    self.assertTrue(math.isclose(power(2, 0.5), 1.414213562, rel_tol=1e-9))  # Square root of 2
+    self.assertTrue(math.isclose(power(2, 0.5), 1.414213562), rel_tol=1e-9)  # Square root of 2
     self.assertEqual(power(10, 2), 100)
     self.assertEqual(power(-3, 2), 9)  
 
@@ -117,16 +117,16 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     """
     @brief Test the square_root function with equivalence classes.
     """
-    self.assertTrue(math.isclose(n_root(4, 2), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(27, 3), 3, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(81, 4), 3, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(16, 2), 4, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1000, 3), 10, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(100, 2), 10, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1024, 10), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(256, 8), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1, 3), 1, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(625, 4), 5, rel_tol=1e-9))
+    self.assertEqual(n_root(4, 2), 2)
+    self.assertEqual(n_root(27, 3), 3)
+    self.assertEqual(n_root(81, 4), 3)
+    self.assertEqual(n_root(16, 2), 4)
+    self.assertEqual(n_root(1000, 3), 10)
+    self.assertEqual(n_root(100, 2), 10)
+    self.assertEqual(n_root(1024, 10), 2)
+    self.assertEqual(n_root(256, 8), 2)
+    self.assertEqual(n_root(1, 3), 1)
+    self.assertEqual(n_root(625, 4), 5)
     self.assertRaises(ValueError, n_root, -16, 0.5)  # should raise error (floats are not allowed)
     self.assertRaises(ValueError, n_root, -1, 3)  #should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 0, 0)  # should raise error
@@ -153,11 +153,11 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     @brief Test the modulo function with equivalence classes.
     """
     self.assertEqual(modulo(0,1), 0)
-    self.assertEqual(modulo(5.2), 1)
+    self.assertEqual(modulo(5,2), 1)
     self.assertEqual(modulo(5,5), 0)
     self.assertEqual(modulo(10,1), 0)
     self.assertEqual(modulo(2000,7), 5)
-    self.assertEqual(modulo(-1, 2), -1) 
+    self.assertEqual(modulo(-1, 2), 1) 
     self.assertEqual(modulo(2, -3), 2)
     self.assertEqual(modulo(-40, -6), -4) 
     self.assertEqual(modulo(999, 1000), 999)
