@@ -70,25 +70,25 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     self.assertEqual(multiply(-1, -1), 1)
     self.assertEqual(multiply(-1000, -145), 145000)
     self.assertEqual(multiply(-2147483648, -1), 2147483648)
-    self.assertTrue(math.isclose(multiply(0.1234, 0.9876), 0.12189984, rel_tol=1e-9))
+    self.assertEqual(multiply(-2.5, 4.0), -10)
+    self.assertTrue(math.isclose(multiply(0.1234, 0.9876), 0.12186984, rel_tol=1e-9))
     self.assertTrue(math.isclose(multiply(3.14159, 2.0), 6.28318, rel_tol=1e-9))
-    self.assertTrue(math.isclose(multiply(-2.5, 4.0), -10.0, rel_tol=1e-9))
 
   def test_divide(self):
     """
     @brief Test the divide function with equivalence classes.
     """
     self.assertEqual(divide(1, 2), 0.5)
-    self.assertTrue(math.isclose(multiply(110545545, 4454515), 24,81651650067404, rel_tol=1e-9))
     self.assertEqual(divide(2147483647, 1), 2147483647)
     self.assertEqual(divide(-1, 1), -1)
     self.assertEqual(divide(0, 1), 0)
     self.assertEqual(divide(1, -1), -1)
     self.assertEqual(divide(-1, -1), 1)
     self.assertEqual(divide(-2147483648, -1), 2147483648)
-    self.assertTrue(math.isclose(divide(0.9876, 0.1234), 8.00486, rel_tol=1e-5))
+    self.assertTrue(math.isclose(divide(110545545, 4454515), 24.81651650067404, rel_tol=1e-9))
+    self.assertTrue(math.isclose(divide(0.9876, 0.1234),  8.003241491, rel_tol=1e-9))
     self.assertTrue(math.isclose(divide(5.5, 2.2), 2.5, rel_tol=1e-9))
-    self.assertTrue(math.isclose(divide(-10.1, -5.05), 2.0, rel_tol=1e-9))
+    self.assertEqual(divide(-10.1, -5.05), 2)
     
   def test_divide_by_zero(self):
       with self.assertRaises(ZeroDivisionError):
@@ -168,5 +168,5 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertTrue(math.isclose(modulo(0.3, 0.1), 0.0, rel_tol=1e-9))
     self.assertRaises(ValueError, modulo, 5645, 0)  # Should raise an error (division by zero)
 
-  if __name__ == "__main__":
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()
