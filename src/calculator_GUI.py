@@ -1,10 +1,10 @@
-import sys
+import sys, math
 from PyQt6.QtWidgets import (QApplication, QGridLayout,
         QWidget, QLineEdit, QTextEdit, QVBoxLayout, QPushButton,
         QSizePolicy)
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtCore import Qt
-#from math_library import add, sub, multiply, divide, power, n_root, factorial
+from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
 
 # potom pouzit float(arg.replace(",",".")),
@@ -15,8 +15,6 @@ from PyQt6.QtCore import Qt
 class Window(QWidget):
 
     isFactorial = False
-    firstArgComma = False
-    secondArgComma = False
     argumentProcessed = 1
     firstArgument = ""
     secondArgument = ""
@@ -25,32 +23,33 @@ class Window(QWidget):
 
     def displayUpdate(self):
         self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+        self.displayText.setCursorPosition(0)
 
     def equalsClicked(self):
-        if self.operation == "+":
-           #self.result = add(self.firstArgument, self.secondArgument)
-            print("add")
-        elif self.operation == "-":
-            #self.result = sub(self.firstArgument, self.secondArgument)
-            print("sub")
-        elif self.operation == "*":
-            #self.result = multiply(self.firstArgument, self.secondArgument)
-            print("multiply")
-        elif self.operation == "/":
-            #self.result = divide(self.firstArgument, self.secondArgument)
-            print("divide")
-        elif self.operation == "^":
-            #self.result = power(self.firstArgument, self.secondArgument)
-            print("power")
-        elif self.operation == "ˣ√":
-            #self.result == n_root(self.firstArgument, self.secondArgument)
-            print("root")
-        elif self.operation == "!":
-            #self.result = factorial(self.firstArgument)
-            print("factorial")
+
+        if ('.' in self.firstArgument) or ('.' in self.secondArgument):
+            self.firstArgument = float(self.firstArgument)
+            self.secondArgument = float(self.secondArgument)
         else:
-            #self.result = mod(self.firstArgument, self.secondArgument)
-            print("modulo")
+            self.firstArgument = int(self.firstArgument)
+            self.secondArgument = int(self.secondArgument)
+
+        if self.operation == "+":
+            self.result = add( self.firstArgument, self.secondArgument)
+        elif self.operation == "-":
+            self.result = sub(self.firstArgument, self.secondArgument)
+        elif self.operation == "*":
+            self.result = multiply(self.firstArgument, self.secondArgument)
+        elif self.operation == "/":
+            self.result = divide(self.firstArgument, self.secondArgument)
+        elif self.operation == "^":
+            self.result = power(self.firstArgument, self.secondArgument)
+        elif self.operation == "ˣ√":
+            self.result == n_root(self.firstArgument, self.secondArgument)
+        elif self.operation == "!":
+            self.result = factorial(self.firstArgument)
+        else:
+            self.result = modulo(self.firstArgument, self.secondArgument)
 
     def numberClicked(self, number):
         if self.argumentProcessed == 1:
@@ -66,7 +65,6 @@ class Window(QWidget):
         self.argumentProcessed = 1
         self.firstArgument = ""
         self.operation = ""
-        self.firstArgComma = False
 
     def clearClicked(self):
         if self.argumentProcessed == 2:
@@ -74,7 +72,6 @@ class Window(QWidget):
                 self.clear()
             else:
                 self.secondArgument = ""
-                self.secondArgComma = False
         else:
             self.clear()
 
@@ -85,19 +82,17 @@ class Window(QWidget):
         self.argumentProcessed = 2
 
     def commaClicked(self):
-        if self.argumentProcessed == 1 and not self.firstArgComma and self.firstArgument != "":
-            self.firstArgComma = True
-            self.firstArgument += ','
-        elif self.argumentProcessed == 2 and not self.secondArgComma and self.secondArgument != "":
-            self.secondArgComma = True
-            self.secondArgument += ','
+        if self.argumentProcessed == 1 and ('.' not in self.firstArgument) and self.firstArgument != "":
+            self.firstArgument += '.'
+        elif self.argumentProcessed == 2 and ('.' not in self.secondArgument) and self.secondArgument != "":
+            self.secondArgument += '.'
 
     def isResult(self, newOperation):
-        self.firstArgument = self.result
+        self.firstArgument = str(self.result)
         self.operation = newOperation
         self.isFactorial = False
         self.secondArgument = ""
-       # self.result = ""
+        self.result = ""
 
     def zero(self, buttonText):
         if self.argumentProcessed == 1 and buttonText != self.firstArgument:
@@ -106,16 +101,16 @@ class Window(QWidget):
             self.numberClicked(buttonText)
 
     def factorial(self, buttonText):
-        if not self.firstArgComma and not self.secondArgument:
+        if '.' not in self.firstArgument and not self.secondArgument:
             self.isFactorial = True
             self.operation = buttonText
             self.argumentProcessed = 2
 
     def pi(self):
         if self.argumentProcessed == 1:
-            self.firstArgument = "3.14159"
+            self.firstArgument = str(math.pi)
         else:
-            self.secondArgument = "3.14159"
+            self.secondArgument = str(math.pi)
 
     def backspace(self):
         if self.argumentProcessed == 1:
@@ -223,7 +218,7 @@ class Window(QWidget):
 
         self.setWindowTitle('Calculator')
         self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(300, 150, 365, 440)
+        self.setGeometry(300, 150, 375, 480)
         self.setStyleSheet('background: #191919')
         self.font = QFont("Consolas", 22, QFont.Weight.Bold)
 
@@ -231,7 +226,7 @@ class Window(QWidget):
 
         self.displayText = QLineEdit()
         self.displayText.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.displayText.setFont(QFont("Consolas", 35))
+        self.displayText.setFont(QFont("Consolas", 30))
         self.displayText.setReadOnly(True)
         self.displayText.setStyleSheet("background-color: #191919; color: white;"
                                        "border-radius: 4px; border: none;")
