@@ -109,7 +109,7 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertEqual(power(0, 0), 1)
     self.assertEqual(power(-2, 3), -8)
     self.assertEqual(power(2, -3), 0.125)
-    self.assertTrue(math.isclose(power(2, 0.5), 1.414213562), rel_tol=1e-9)  # Square root of 2
+    self.assertTrue(math.isclose(power(2, 0.5), math.sqrt(2), rel_tol=1e-9))  # Square root of 2
     self.assertEqual(power(10, 2), 100)
     self.assertEqual(power(-3, 2), 9)  
 
@@ -158,7 +158,7 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertEqual(modulo(10,1), 0)
     self.assertEqual(modulo(2000,7), 5)
     self.assertEqual(modulo(-1, 2), 1) 
-    self.assertEqual(modulo(2, -3), 2)
+    self.assertEqual(modulo(2, -3), -1)
     self.assertEqual(modulo(-40, -6), -4) 
     self.assertEqual(modulo(999, 1000), 999)
     self.assertEqual(modulo(1000, 999), 1)
