@@ -23,4 +23,5 @@ pack:
 	cd ../../$(TEAM) && cp -a ../IVS-Calculator/installer ./
 	make doc
 	cd ../../$(TEAM) && cp -a ../IVS-Calculator/doc ./
+	cd ../../ && zip -r $(TEAM).zip ./$(TEAM)
 
