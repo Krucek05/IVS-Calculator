@@ -129,8 +129,6 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertEqual(n_root(-8, 3), -2)
     self.assertEqual(n_root(625, 4), 5)
     self.assertEqual(n_root(5, 0.5), 25)
-    self.assertRaises(ValueError, n_root, -16, 0.5)  # should raise error (floats are not allowed)
-    self.assertRaises(ValueError, n_root, -1, 3)  #should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 0, 0)  # should raise error
     self.assertRaises(ValueError, n_root, -1, -1)  # should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 1, 0)  # should raise error
