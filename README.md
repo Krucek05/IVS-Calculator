@@ -1,31 +1,27 @@
-Environment
----------
+# 💻 **IVS PROJECT - CALCULATOR**  
+---
 
-Platform: Ubuntu 64-bit (Preferred for the project evaluation, but compatible across different platforms)
+This is a **calculator application** developed as part of the IVS  course.  
+Its core purpose is to **evaluate mathematical expressions** and provide  **numerical result** 
+---
 
-Authors
-------
+## 🌍 Environment  
+**Platform:** Ubuntu 64-bit *(Preferred for project evaluation)*  
+✔️ Cross-platform compatible with minor adjustments
 
-Sudo_Apt_Install_Calculator
-- xrucekk00 -> Kristián Rúček
-- xfigurf00 -> Filip Figúr 
-- xkucikm00 -> Miroslav Kučík
-- xseryra00 -> Rastislav Šerý 
+---
 
-Licence
--------
+## 👨‍💻 Authors — Team `Sudo_Apt_Install_Calculator`  
+- 🧠 **xrucekk00** → Kristián Rúček  
+- 💡 **xfigurf00** → Filip Figúr  
+- 🛠️ **xkucikm00** → Miroslav Kučík  
+- 🎨 **xseryra00** → Rastislav Šerý  
 
-This program is distributed under the GNU General Public License v3.0.
+---
 
-Features
---------
-
-- Basic Operations: Addition, subtraction, multiplication, and division.
-
-- Factorial: Computes the factorial of a non-negative integer.
-
-- Exponentiation: Supports exponentiation for natural exponents (positive integers).
-
-- General Roots: Computes general nth roots for real numbers, including error handling for negative numbers.
-
-- Modulo: Computes the modulo between two numbers, with error handling for division by zero.
+## 🛠️ Features  
+- ➕ **Basic Operations**: Addition `+`, subtraction `-`, multiplication `*`, and division `/`  
+- ❗ **Factorial**: Computes factorial `n!` for non-negative integers  
+- ⬆️ **Exponentiation**: Supports `^` for natural (positive integer) exponents  
+- 🌱 **General Roots**: Computes general `n`-th roots, including proper error handling for negative inputs  
+- 🔢 **Modulo**: Supports modulo `%` operation, with handling for division by zero
