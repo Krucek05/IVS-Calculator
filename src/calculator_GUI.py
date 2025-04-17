@@ -1,71 +1,148 @@
+############################################################################
+# @file calculator_GUI.py
+# @brief GUI for Calculator, IVS 2025
+# @date 17.4.2025
+# @author: Rastislav Šerý <xseryra00>
+#
+#Logic behind graphic user face and processing inputs
+############################################################################
+
+
 import sys, math
 from PyQt6.QtWidgets import (QApplication, QGridLayout,
-        QWidget, QLineEdit, QTextEdit, QVBoxLayout, QPushButton,
+        QWidget, QLineEdit, QVBoxLayout, QPushButton,
         QSizePolicy)
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtCore import Qt
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
 
-# potom pouzit float(arg.replace(",",".")),
-#ale asi to nesmie fungovat pre mocninu odmocninu a factorial
-# vymyslet ako zobrazit
-#a^x a odm(x,a)
+# ked je float tak nesmie a^b sa pouzit, to iste root
+
+
+#ked je rovnasa bez operacie tak to vycisti idk ci to tak nehat
+
 
 class Window(QWidget):
 
-    isFactorial = False
+    buttons = [
+        '²√', 'a²', 'aˣ', 'C', '⌫',
+        'ˣ√', '7', '8', '9', '/',
+        '%', '4', '5', '6', '*',
+        '!', '1', '2', '3', '-',
+        'π', ',', '0', '=', '+',
+    ]
+
+
     argumentProcessed = 1
     firstArgument = ""
     secondArgument = ""
     operation = ""
-    result = "123"
+    result = ""
 
+############################################################################
+# @brief Function to process second root
+############################################################################
+    def secondRoot(self):
+        if self.secondArgument != "":
+            self.makeNumSecArg()
+            self.secondArgument = str(power(self.secondArgument), 2)
+        else:
+            self.operation = ""
+            self.makeNumFirstArg()
+            self.firstArgument = str(power(self.firstArgument, 2))
+
+############################################################################
+# @brief Function to process second power
+############################################################################
+    def secondPower(self):
+        if self.secondArgument != "":
+            self.makeNumSecArg()
+            self.secondArgument = str(power(self.secondArgument), 2)
+        else:
+            self.operation = ""
+            self.makeNumFirstArg()
+            self.firstArgument = str(power(self.firstArgument, 2))
+
+############################################################################
+# @brief Converts first argument to int/float based on whether there is comma
+############################################################################
+    def makeNumFirstArg(self):
+        if ('.' not in self.firstArgument) and ('.' not in self.secondArgument):
+            self.firstArgument = int(self.firstArgument)
+        else:
+            self.firstArgument = float(self.firstArgument)
+
+############################################################################
+# @brief Converts first argument to int/float based on whether there is comma
+############################################################################
+    def makeNumSecArg(self):
+        if ('.' not in str(self.firstArgument)) and ('.' not in self.secondArgument):
+            self.secondArgument = int(self.secondArgument)
+        else:
+            self.secondArgument = float(self.secondArgument)
+
+############################################################################
+# @brief Updates display on calculator
+############################################################################
     def displayUpdate(self):
         self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
         self.displayText.setCursorPosition(0)
 
-    def equalsClicked(self):
-
-        if ('.' in self.firstArgument) or ('.' in self.secondArgument):
-            self.firstArgument = float(self.firstArgument)
-            self.secondArgument = float(self.secondArgument)
-        else:
-            self.firstArgument = int(self.firstArgument)
-            self.secondArgument = int(self.secondArgument)
-
-        if self.operation == "+":
-            self.result = add( self.firstArgument, self.secondArgument)
-        elif self.operation == "-":
-            self.result = sub(self.firstArgument, self.secondArgument)
-        elif self.operation == "*":
-            self.result = multiply(self.firstArgument, self.secondArgument)
-        elif self.operation == "/":
-            self.result = divide(self.firstArgument, self.secondArgument)
-        elif self.operation == "^":
-            self.result = power(self.firstArgument, self.secondArgument)
-        elif self.operation == "ˣ√":
-            self.result == n_root(self.firstArgument, self.secondArgument)
-        elif self.operation == "!":
-            self.result = factorial(self.firstArgument)
-        else:
-            self.result = modulo(self.firstArgument, self.secondArgument)
-
+############################################################################
+# @brief Adds clicked number to processed argument
+# @param number Number that was clicked
+############################################################################
     def numberClicked(self, number):
         if self.argumentProcessed == 1:
             if self.firstArgument == "0":
                 self.firstArgument = ""
             self.firstArgument += number
-        elif not self.isFactorial:
+        else:
             if self.secondArgument == "0":
                 self.secondArgument = ""
             self.secondArgument += number
 
-    def clear(self):
-        self.argumentProcessed = 1
-        self.firstArgument = ""
-        self.operation = ""
+############################################################################
+# @brief Logic to get result after "=" is clicked
+############################################################################
+    def equalsClicked(self):
+        if (self.operation != "") and (self.firstArgument != "") and (self.secondArgument != ""):
+            self.makeNumFirstArg()
+            self.makeNumSecArg()
+            if self.operation == "+":
+                self.result = add( self.firstArgument, self.secondArgument)
+            elif self.operation == "-":
+                self.result = sub(self.firstArgument, self.secondArgument)
+            elif self.operation == "*":
+                self.result = multiply(self.firstArgument, self.secondArgument)
+            elif self.operation == "/":
+                self.result = divide(self.firstArgument, self.secondArgument)
+            elif self.operation == "^":
+                print(self.firstArgument)
+                print(self.secondArgument)
+                self.result = power(self.firstArgument, self.secondArgument)
+            elif self.operation == "ˣ√":
+                self.result == n_root(self.firstArgument, self.secondArgument)
+            elif self.operation == "%":
+                self.result = modulo(self.firstArgument, self.secondArgument)
 
+############################################################################
+# @brief Processes result to first argument, so we can use it again for calculations
+# @param newOperation operation to add after first argument
+#
+# Takes result after calculation and if instead "=" some other operation
+# was used it adds it after the first argument
+############################################################################
+    def isResult(self, newOperation):
+        self.firstArgument = str(self.result)
+        self.operation = newOperation
+        self.secondArgument = ""
+        self.result = ""
+
+############################################################################
+# @brief Logic to clear dislpay of calculator after "C" is clicked
+############################################################################
     def clearClicked(self):
         if self.argumentProcessed == 2:
             if self.secondArgument == "":
@@ -75,45 +152,53 @@ class Window(QWidget):
         else:
             self.clear()
 
+############################################################################
+# @brief clears operation, first argument and number of processed argument
+############################################################################
+    def clear(self):
+        self.argumentProcessed = 1
+        self.firstArgument = ""
+        self.operation = ""
 
+############################################################################
+# @brief Logic after some mathematical operation is clicked
+############################################################################
     def operationClicked(self, operation):
         self.operation = operation
-        self.isFactorial = False
         self.argumentProcessed = 2
 
+############################################################################
+# @brief Logic to add comma at the end of processed argument
+############################################################################
     def commaClicked(self):
         if self.argumentProcessed == 1 and ('.' not in self.firstArgument) and self.firstArgument != "":
             self.firstArgument += '.'
         elif self.argumentProcessed == 2 and ('.' not in self.secondArgument) and self.secondArgument != "":
             self.secondArgument += '.'
 
-    def isResult(self, newOperation):
-        self.firstArgument = str(self.result)
-        self.operation = newOperation
-        self.isFactorial = False
-        self.secondArgument = ""
-        self.result = ""
+############################################################################
+# @brief Logic to calculate factorial of number
+############################################################################
+    def factorial(self):
+        if ('.' not in self.firstArgument) and (not self.secondArgument):
+             self.firstArgument = str(factorial(int(self.firstArgument)))
+        elif '.' not in self.secondArgument :
+            self.secondArgument = str(factorial(int(self.secondArgument)))
 
-    def zero(self, buttonText):
-        if self.argumentProcessed == 1 and buttonText != self.firstArgument:
-            self.numberClicked(buttonText)
-        elif self.argumentProcessed == 2 and buttonText != self.secondArgument:
-            self.numberClicked(buttonText)
-
-    def factorial(self, buttonText):
-        if '.' not in self.firstArgument and not self.secondArgument:
-            self.isFactorial = True
-            self.operation = buttonText
-            self.argumentProcessed = 2
-
+############################################################################
+# @brief Function that makes from processed argument pi
+############################################################################
     def pi(self):
         if self.argumentProcessed == 1:
             self.firstArgument = str(math.pi)
         else:
             self.secondArgument = str(math.pi)
 
+############################################################################
+# @brief Logic done after clicking backspace
+############################################################################
     def backspace(self):
-        if self.argumentProcessed == 1:
+        if (self.argumentProcessed == 1) and (self.firstArgument != ""):
             self.firstArgument = self.firstArgument[:-1]
         else:
             if self.secondArgument == "":
@@ -122,60 +207,57 @@ class Window(QWidget):
             else:
                 self.secondArgument = self.secondArgument[:-1]
 
-
+############################################################################
+# @brief Function that processes click of some button
+#
+# Checks what was clicked and based on that calls right functions
+############################################################################
     def buttonClick(self):
         buttonText = self.sender().text()
+        if '0' <= buttonText and buttonText <= '9':
+            self.numberClicked(buttonText)
 
-        if '0' < buttonText and buttonText <= '9':
-           self.numberClicked(buttonText)
+        elif buttonText == '=':
+            self.equalsClicked()
+            self.isResult("")
+        elif buttonText == ",":
+            self.commaClicked()
 
         elif buttonText == "C":
             self.clearClicked()
 
-        elif buttonText == '⌫':
-            self.backspace()
-
-        elif buttonText == '0':
-            self.zero(buttonText)
-
-        elif buttonText == ",":
-            self.commaClicked()
-
-        elif buttonText == "!":
-            self.factorial(buttonText)
-
-        elif buttonText == "=":
-            self.equalsClicked()
-            self.isResult("")
-
-        elif buttonText == "²√":
-#            self.result = n_root(int(self.firstArgument), 2)
-            self.isResult("")
-
-        elif buttonText == "a²":
-#           self.reult = power(self.firstArgument, 2)
-            self.isResult("")
-
         elif buttonText == 'π':
-            self.pi()
+                self.pi()
+        elif self.firstArgument != "":
+            if buttonText == "²√":
+                self.secondRoot()
+            elif buttonText == "a²":
+                self.secondPower()
+            elif buttonText == "!":
+                self.factorial()
+            elif buttonText == '⌫':
+                self.backspace()
 
-        elif buttonText == "aˣ":
-            self.operation = "^"
-            self.isFactorial = False
-            self.argumentProcessed = 2
-
-        else:
-            if self.secondArgument == "":
+            elif self.secondArgument == "":
+                print(22)
+                if buttonText == "aˣ":
+                    buttonText = "^"
                 self.operationClicked(buttonText)
             elif buttonText != "aˣ" or buttonText != "ˣ√":
                 self.equalsClicked()
                 self.isResult(buttonText)
-
         self.displayUpdate()
 
 
 
 
+
+############################################################################
+# @brief Function that adds bbuttons to calculator
+#
+# @param colAmount Number of columns
+# @param buttonList List of all buttons we want to be in there
+############################################################################
     def buttonsCreation(self, colAmount, buttonList):
         row, col = 0, 0
         for symbol in buttonList:
@@ -198,7 +280,13 @@ class Window(QWidget):
                 row += 1
                 col = 0
 
-
+############################################################################
+# @brief Functions that gives buttons its atribute e.g. color, symbol...
+#
+# @param symbol Symbol that will be on the button
+# @param color Color that will noramlly be on the button
+# @param color2 Color that will be on button whenmouse is hovering over it
+############################################################################
     def buttonAtributes(self, symbol, color, color2):
         button = QPushButton(symbol)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -212,7 +300,9 @@ class Window(QWidget):
         return button
 
 
-
+############################################################################
+# @brief Initializes calculator window and builds all buttons
+############################################################################
     def __init__(self):
         super().__init__()
 
@@ -221,6 +311,7 @@ class Window(QWidget):
         self.setGeometry(300, 150, 375, 480)
         self.setStyleSheet('background: #191919')
         self.font = QFont("Consolas", 22, QFont.Weight.Bold)
+
 
         simpleLayout = QVBoxLayout()
 
@@ -237,15 +328,7 @@ class Window(QWidget):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(3)
 
-        buttons = [
-            '²√', 'a²', 'aˣ', 'C', '⌫',
-            'ˣ√', '7', '8', '9', '/',
-            '%', '4', '5', '6', '*',
-            '!', '1', '2', '3', '-',
-            'π', ',', '0', '=', '+',
-        ]
-
-        self.buttonsCreation(5, buttons)
+        self.buttonsCreation(5, self.buttons)
 
         simpleLayout.addLayout(self.gridLayout)
         self.setLayout(simpleLayout)
