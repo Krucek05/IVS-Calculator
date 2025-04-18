@@ -1,10 +1,10 @@
 ############################################################################
-# @file calculator_GUI.py
-# @brief GUI for Calculator, IVS 2025
-# @date 17.4.2025
-# @author: Rastislav Šerý <xseryra00>
-#
-# Logic behind graphic user face and processing inputs
+## @file calculator_GUI.py
+## @brief GUI for Calculator, IVS 2025
+## @date 17.4.2025
+## @author: Rastislav Šerý <xseryra00>
+##
+## Logic behind graphic user face and processing inputs
 ############################################################################
 
 
@@ -20,9 +20,9 @@ from PyQt6.QtWidgets import (QApplication, QGridLayout,
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
 
-# ked je rovnasa bez operacie tak to vycisti a taktiez sa uz potom neda stlacit operacia
 # backspace nejde predtym ako sa zmackne tlacidlo
-
+# niekedy neviem presne akym sposobom sa len tak nahodou stane ze si to mysly ze je to druhy argument a operator
+#je popritom prazdny
 
 class Window(QWidget):
     buttons = [
@@ -40,8 +40,9 @@ class Window(QWidget):
     result = ""
 
     ############################################################################
-    # @brief Function to process second root
+    ## @brief Function to process second root
     ############################################################################
+
     def secondRoot(self):
         if self.secondArgument != "":
             self.makeNumSecArg()
@@ -52,7 +53,7 @@ class Window(QWidget):
             self.firstArgument = str(power(self.firstArgument, 2))
 
     ############################################################################
-    # @brief Function to process second power
+    ## @brief Function to process second power
     ############################################################################
     def secondPower(self):
         if self.secondArgument != "":
@@ -64,7 +65,7 @@ class Window(QWidget):
             self.firstArgument = str(power(self.firstArgument, 2))
 
     ############################################################################
-    # @brief Converts first argument to int/float based on whether there is comma
+    ## @brief Converts first argument to int/float based on whether there is comma
     ############################################################################
     def makeNumFirstArg(self):
         if ('.' not in self.firstArgument) and ('.' not in self.secondArgument):
@@ -73,7 +74,7 @@ class Window(QWidget):
             self.firstArgument = float(self.firstArgument)
 
     ############################################################################
-    # @brief Converts first argument to int/float based on whether there is comma
+    ## @brief Converts first argument to int/float based on whether there is comma
     ############################################################################
     def makeNumSecArg(self):
         if ('.' not in str(self.firstArgument)) and ('.' not in self.secondArgument):
@@ -82,15 +83,15 @@ class Window(QWidget):
             self.secondArgument = float(self.secondArgument)
 
     ############################################################################
-    # @brief Updates display on calculator
+    ## @brief Updates display on calculator
     ############################################################################
     def displayUpdate(self):
         self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
         self.displayText.setCursorPosition(0)
 
     ############################################################################
-    # @brief Adds clicked number to processed argument
-    # @param number Clicked number
+    ## @brief Adds clicked number to processed argument
+    ## @param number Clicked number
     ############################################################################
     def numberClicked(self, number):
         if self.argumentProcessed == 1:
@@ -103,7 +104,7 @@ class Window(QWidget):
             self.secondArgument += number
 
     ############################################################################
-    # @brief Logic to get result after "=" is clicked
+    ## @brief Logic to get result after "=" is clicked
     ############################################################################
     def equalsClicked(self):
         if (self.operation != "") and (self.firstArgument != "") and (self.secondArgument != ""):
@@ -119,17 +120,17 @@ class Window(QWidget):
                 self.result = divide(self.firstArgument, self.secondArgument)
             elif self.operation == "^":
                 self.result = power(self.firstArgument, self.secondArgument)
-            elif self.operation == "ˣ√":
-                self.result = n_root(self.firstArgument, self.secondArgument)
+            elif self.operation == "√":
+                self.result = n_root(self.secondArgument, self.firstArgument)
             elif self.operation == "%":
                 self.result = modulo(self.firstArgument, self.secondArgument)
 
     ############################################################################
-    # @brief Processes result to first argument, so we can use it again for calculations
-    # @param newOperation operation to add after first argument
-    #
-    # Takes result after calculation and if instead "=" some other operation
-    # was used it adds it after the first argument
+    ## @brief Processes result to first argument, so we can use it again for calculations
+    ## @param newOperation operation to add after first argument
+    ##
+    ## Takes result after calculation and if instead "=" some other operation
+    ## was used it adds it after the first argument
     ############################################################################
     def isResult(self, newOperation):
         self.firstArgument = str(self.result)
@@ -138,7 +139,7 @@ class Window(QWidget):
         self.result = ""
 
     ############################################################################
-    # @brief Logic to clear display of calculator after "C" is clicked
+    ## @brief Logic to clear display of calculator after "C" is clicked
     ############################################################################
     def clearClicked(self):
         if self.argumentProcessed == 2:
@@ -150,7 +151,7 @@ class Window(QWidget):
             self.clear()
 
     ############################################################################
-    # @brief clears operation, first argument and number of processed argument
+    ## @brief clears operation, first argument and number of processed argument
     ############################################################################
     def clear(self):
         self.argumentProcessed = 1
@@ -158,14 +159,14 @@ class Window(QWidget):
         self.operation = ""
 
     ############################################################################
-    # @brief Logic after some mathematical operation is clicked
+    ## @brief Logic after some mathematical operation is clicked
     ############################################################################
     def operationClicked(self, operation):
         self.operation = operation
         self.argumentProcessed = 2
 
     ############################################################################
-    # @brief Logic to add comma at the end of processed argument
+    ## @brief Logic to add comma at the end of processed argument
     ############################################################################
     def commaClicked(self):
         if self.argumentProcessed == 1 and ('.' not in self.firstArgument) and self.firstArgument != "":
@@ -174,7 +175,7 @@ class Window(QWidget):
             self.secondArgument += '.'
 
     ############################################################################
-    # @brief Logic to calculate factorial of number
+    ## @brief Logic to calculate factorial of number
     ############################################################################
     def factorial(self):
         if ('.' not in self.firstArgument) and (not self.secondArgument):
@@ -183,7 +184,7 @@ class Window(QWidget):
             self.secondArgument = str(factorial(int(self.secondArgument)))
 
     ############################################################################
-    # @brief Function that makes from processed argument pi
+    ## @brief Function that makes from processed argument pi
     ############################################################################
     def pi(self):
         if self.argumentProcessed == 1:
@@ -192,7 +193,7 @@ class Window(QWidget):
             self.secondArgument = str(math.pi)
 
     ############################################################################
-    # @brief Logic done after clicking backspace
+    ## @brief Logic done after clicking backspace
     ############################################################################
     def backspace(self):
         if (self.argumentProcessed == 1) and (self.firstArgument != ""):
@@ -205,14 +206,18 @@ class Window(QWidget):
                 self.secondArgument = self.secondArgument[:-1]
 
     ############################################################################
-    # @brief Function that processes click of some button
-    #
-    # Checks what was clicked and based on that calls right functions
+    ## @brief Checks what was clicked and call function for processing
     ############################################################################
     def buttonClick(self):
         buttonText = self.sender().text()
         self.processClickedCharacter(buttonText)
         self.setFocus()
+
+    ############################################################################
+    ## @brief processes character which was pressed and call right function based on that
+    ##
+    ## @param buttonText Text of the pressed button
+    ############################################################################
 
     def processClickedCharacter(self, buttonText):
 
@@ -220,8 +225,9 @@ class Window(QWidget):
             self.numberClicked(buttonText)
 
         elif buttonText == '=':
-            self.equalsClicked()
-            self.isResult("")
+            if self.operation != "":
+                self.equalsClicked()
+                self.isResult("")
         elif buttonText == ",":
             self.commaClicked()
 
@@ -243,12 +249,17 @@ class Window(QWidget):
             elif self.secondArgument == "":
                 if buttonText == "aˣ":
                     buttonText = "^"
+                elif buttonText == "ˣ√":
+                    buttonText = "√"
                 self.operationClicked(buttonText)
             elif buttonText != "aˣ" or buttonText != "ˣ√":
                 self.equalsClicked()
                 self.isResult(buttonText)
         self.displayUpdate()
 
+    ############################################################################
+    ## @brief Checks what was clicked and call function for processing
+    ############################################################################
     def keyPressEvent(self, event: QKeyEvent):
         if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
             keyText = '='
@@ -262,10 +273,10 @@ class Window(QWidget):
             self.processClickedCharacter(keyText)
 
     ############################################################################
-    # @brief Function that adds buttons to calculator
-    #
-    # @param colAmount Number of columns
-    # @param buttonList List of all buttons we want to be in there
+    ## @brief Function that adds buttons to calculator
+    ##
+    ## @param colAmount Number of columns
+    ## @param buttonList List of all buttons we want to be in there
     ############################################################################
 
     def buttonsCreation(self, colAmount, buttonList):
@@ -291,11 +302,11 @@ class Window(QWidget):
                 col = 0
 
     ############################################################################
-    # @brief Functions that gives buttons its attribute e.g. color, symbol...
-    #
-    # @param symbol Which symbol will be on the button
-    # @param color Which Color will normally be on the button
-    # @param color2 Color that will be on button when mouse is hovering over it
+    ## @brief Functions that gives buttons its attribute e.g. color, symbol...
+    ##
+    ## @param symbol Which symbol will be on the button
+    ## @param color Which Color will normally be on the button
+    ## @param color2 Color that will be on button when mouse is hovering over it
     ############################################################################
     def buttonAttributes(self, symbol, color, color2):
         button = QPushButton(symbol)
@@ -311,7 +322,7 @@ class Window(QWidget):
         return button
 
     ############################################################################
-    # @brief Initializes calculator window and builds all buttons
+    ## @brief Initializes calculator window and builds all buttons
     ############################################################################
     def __init__(self):
         super().__init__()
