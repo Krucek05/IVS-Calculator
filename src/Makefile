@@ -1,13 +1,13 @@
 TEAM = xrucekk00_xfigurf00_xkucikm00_xseryra00
 
-.PHONY: all depend run clean doc
+.PHONY: all depend run clean doc pack stddev
 
-all:
+all: depend
 
 depend:
-	pip3 install pyqt6
+	sudo apt install python3-pyqt6
 
-run:
+run: depend
 	python3 calculator_GUI.py
 
 clean:
@@ -25,3 +25,11 @@ pack:
 	cd ../../$(TEAM) && cp -a ../IVS-Calculator/doc ./
 	cd ../../ && zip -r $(TEAM).zip ./$(TEAM)
 
+stddev:
+	python3 profiling.py < ../profiling/Test_files/10num.txt
+	python3 profiling.py < ../profiling/Test_files/100num.txt
+	python3 profiling.py < ../profiling/Test_files/1000num.txt
+	python3 profiling.py < ../profiling/Test_files/10000num.txt
+	python3 profiling.py < ../profiling/Test_files/100000num.txt
+	python3 profiling.py < ../profiling/Test_files/1000000num.txt
+	python3 profiling.py < ../profiling/Test_files/10000000num.txt
