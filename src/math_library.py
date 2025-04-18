@@ -1,7 +1,7 @@
 ############################################################################
 # @file math_library.py
 # @brief Calculator math library for IVS 2025
-# @date 27.3.2022
+# @date 27.3.2025
 # @author: Filip Figúr <xfigurf00>
 #
 # Implemenation of tests for calculator library
@@ -10,46 +10,46 @@
 import math
 from decimal import Decimal
 
-# @brief Adds two numbers
-# @param a First operand
-# @param b Second operand
-# @return The result of a+b (Sum)
+## @brief Adds two numbers
+## @param a First operand
+## @param b Second operand
+## @return The result of a+b (Sum)
 def add(a,b):
     return (a+b)
 
-# @brief Substraction of two numbers
-# @param a First operand (minuend)
-# @param b Second operand (subtrahend)
-# @return The result of a-b (difference)
+## @brief Substraction of two numbers
+## @param a First operand (minuend)
+## @param b Second operand (subtrahend)
+## @return The result of a-b (difference)
 def sub(a,b):
     return (a-b)
 
-# @brief Multiplication of two numbers
-# @param a First operand (Multiplicand)
-# @param b Second operand (Multiplier)
-# @return The result of a*b (Product)
+## @brief Multiplication of two numbers
+## @param a First operand (Multiplicand)
+## @param b Second operand (Multiplier)
+## @return The result of a*b (Product)
 def multiply(a,b):
     return(a*b)
 
-# @brief Division of two numbers
-# @param a First operand (Dividend)
-# @param b Second operand (Divisor)
-# @return The result of a/b (Quotient)
+## @brief Division of two numbers
+## @param a First operand (Dividend)
+## @param b Second operand (Divisor)
+## @return The result of a/b (Quotient)
 def divide(a,b):
     return(a/b)
 
-# @brief Raised the number (a) to the power of an exponent (b)
-# @param a Base number
-# @param b Exponent
-# @return The result of a raised to the power of b (a^b)
+## @brief Raised the number (a) to the power of an exponent (b)
+## @param a Base number
+## @param b Exponent
+## @return The result of a raised to the power of b (a^b)
 def power(a,b):
     return (a**b)
 
-# @brief Calculates the b-th root of number a (a and b are real numbers)
-# @param a Number under root (radicand)
-# @param b Degree of the root (Non-zero integer)
-# @return The real b-th root of a 
-# @throws ValueError if the operation is undefined or would require complex numbers
+## @brief Calculates the b-th root of number a (a and b are real numbers)
+## @param a Number under root (radicand)
+## @param b Degree of the root (Non-zero integer)
+## @return The real b-th root of a 
+## @throws ValueError if the operation is undefined or would require complex numbers
 def n_root(a,b):
     # CASE Not allowed - complex numbers needed
     if ((a < 0) and (b % 2 == 0)): #n_root(-8,2)
@@ -73,10 +73,10 @@ def n_root(a,b):
         return round(root)
     return root
 
-# @brief Calculates factorial of positive integer a
-# @param a Positive integer and (a < 20)
-# @return Factorial of number a
-# @throws ValueError if the input is float, negative or greater than 20
+## @brief Calculates factorial of positive integer a
+## @param a Positive integer and (a < 20)
+## @return Factorial of number a
+## @throws ValueError if the input is float, negative or greater than 20
 def factorial(a):
     if (isinstance(a,float)): # Basic factorial function is defined only for positive integers
         raise ValueError("Floats are not allowed")
@@ -93,13 +93,13 @@ def factorial(a):
         counter += 1
     return(result)
 
-# @brief Calculates modulo of a/b
-#        In Python, result of modulo (%) has same sign as the divisor
-#        Formula for modulo: Dividend mod Divisor = Remainder
-#        Proof:  Quotient * Divisor + Remainder = Dividend
-# @param a First operand (Dividend)
-# @param b Second operand (Divisor)
-# @return The result of a%b (Remainder)
+## @brief Calculates modulo of a/b
+##        In Python, result of modulo (%) has same sign as the divisor
+##        Formula for modulo: Dividend mod Divisor = Remainder
+##        Proof:  Quotient * Divisor + Remainder = Dividend
+## @param a First operand (Dividend)
+## @param b Second operand (Divisor)
+## @return The result of a%b (Remainder)
 def modulo(a,b):
     if (b == 0):
         raise ValueError("Division by zero\n")
