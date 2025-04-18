@@ -9,16 +9,13 @@
 
 import math
 from decimal import Decimal
-"""
-@brief ADD function
-"""
+
 # @brief Adds two numbers
 # @param a First operand
 # @param b Second operand
 # @return The result of a+b (Sum)
 def add(a,b):
     return (a+b)
-
 
 # @brief Substraction of two numbers
 # @param a First operand (minuend)
