@@ -54,8 +54,10 @@ def main():
     core = formula_core(data,average)
     #print(f"Core = {core}")
     standard_deviation = finito(core,count)
-    print(f"standard deviation = {standard_deviation}")
+    print(f"{standard_deviation}")
     
 if __name__ == "__main__":
     import cProfile
+    import pstats
     cProfile.run("main()")
+    
