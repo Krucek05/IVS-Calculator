@@ -12,7 +12,7 @@ import sys, math
 from PyQt6.QtWidgets import (QApplication, QGridLayout,
         QWidget, QLineEdit, QVBoxLayout, QPushButton,
         QSizePolicy)
-from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtGui import QIcon, QFont, QKeyEvent
 from PyQt6.QtCore import Qt
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
@@ -214,6 +214,11 @@ class Window(QWidget):
 ############################################################################
     def buttonClick(self):
         buttonText = self.sender().text()
+        self.processClickedCharacter(buttonText)
+        self.setFocus()
+
+    def processClickedCharacter(self, buttonText):
+
         if '0' <= buttonText and buttonText <= '9':
             self.numberClicked(buttonText)
 
@@ -223,7 +228,7 @@ class Window(QWidget):
         elif buttonText == ",":
             self.commaClicked()
 
-        elif buttonText == "C":
+        elif buttonText in ("C", "c"):
             self.clearClicked()
 
         elif buttonText == 'π':
@@ -239,7 +244,6 @@ class Window(QWidget):
                 self.backspace()
 
             elif self.secondArgument == "":
-                print(22)
                 if buttonText == "aˣ":
                     buttonText = "^"
                 self.operationClicked(buttonText)
@@ -249,11 +253,25 @@ class Window(QWidget):
         self.displayUpdate()
 
 
+    def keyPressEvent(self, event:QKeyEvent):
+        keyText = ''
+        stuff = event.key()
+        print(stuff)
 
+        if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            keyText = '='
+        elif event.key() in (Qt.Key.Key_Backspace, Qt.Key.Key_Delete):
+            keyText = '⌫'
+        else:
+            keyText = event.text()
+        if keyText == '^':
+            keyText = "aˣ"
+        if (keyText in self.buttons) or (keyText == "c"):
+            self.processClickedCharacter(keyText)
 
 
 ############################################################################
-# @brief Function that adds bbuttons to calculator
+# @brief Function that adds buttons to calculator
 #
 # @param colAmount Number of columns
 # @param buttonList List of all buttons we want to be in there
@@ -281,14 +299,15 @@ class Window(QWidget):
                 col = 0
 
 ############################################################################
-# @brief Functions that gives buttons its atribute e.g. color, symbol...
+# @brief Functions that gives buttons its attribute e.g. color, symbol...
 #
 # @param symbol Symbol that will be on the button
-# @param color Color that will noramlly be on the button
-# @param color2 Color that will be on button whenmouse is hovering over it
+# @param color Color that will normally be on the button
+# @param color2 Color that will be on button when mouse is hovering over it
 ############################################################################
     def buttonAtributes(self, symbol, color, color2):
         button = QPushButton(symbol)
+        button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         button.setFont(self.font)
         button.clicked.connect(self.buttonClick)  # Connect to function
@@ -305,12 +324,12 @@ class Window(QWidget):
 ############################################################################
     def __init__(self):
         super().__init__()
-
         self.setWindowTitle('Calculator')
         self.setWindowIcon(QIcon('icon.png'))
         self.setGeometry(300, 150, 375, 480)
         self.setStyleSheet('background: #191919')
         self.font = QFont("Consolas", 22, QFont.Weight.Bold)
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
 
         simpleLayout = QVBoxLayout()
@@ -334,8 +353,6 @@ class Window(QWidget):
         self.setLayout(simpleLayout)
 
 
-
-
 def main():
     app = QApplication([])
     window = Window()
@@ -345,6 +362,3 @@ def main():
 if __name__ == '__main__':
 
     main()
-
-
-
