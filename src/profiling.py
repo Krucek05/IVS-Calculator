@@ -11,6 +11,9 @@
 import sys
 from math_library import add, sub, multiply, divide, power, n_root
 
+## @brief Reads data from stdin and stores them in data[]
+## @param data Array to store the values from stdin
+## @return Array data[] filled with data from stdin
 def data_extractor(data):
     for line in sys.stdin:
         line = line.strip()
@@ -21,6 +24,10 @@ def data_extractor(data):
                 data.append(num)  
     return data
 
+## @brief Calculated average from numbers stored in data[]
+## @param data Array with values (numbers)
+## @param count Number of values
+## @return Average value  
 def calculate_average(data,count):
     total = 0
     for num in data:
@@ -28,6 +35,10 @@ def calculate_average(data,count):
     average = (total/count)
     return average
 
+## @brief For each value from data[] calculates (data[i]^2 - average^2) and sums the results together
+## @param data Array with values (numbers)
+## @param average Average value of the data[]
+## @return Sum of (data[i]^2 - average^2) for each value from data[]
 def formula_core(data,average):
     total = 0
     avg_power = power(average,2)
@@ -37,27 +48,27 @@ def formula_core(data,average):
         total = add(total,part_sub)
     return total
 
+## @brief Finishes the calculation of standard deviation
+## @param core Sum of (data[i]^2 - average^2) for each parameter
+## @param count Number of values 
+## @return Standard deviation for given data
 def finito(core,count):
     fraction = divide(1,count-1)
     under_square_root = multiply(fraction,core)
     result = n_root(under_square_root,2)
     return result
 
+## @brief Calls functions to calculate standard deviation from data on stdin
 def main():
     data = [] # storing each number value
     data_extractor(data)
     count = len(data) # number of lines = how many numbers are there (N)
-    #print(f"data = {data}")
-    #print(f"count = {count}")
     average = calculate_average(data,count)
-    #print(f"average = {average}")
     core = formula_core(data,average)
-    #print(f"Core = {core}")
     standard_deviation = finito(core,count)
     print(f"{standard_deviation}")
     
 if __name__ == "__main__":
     import cProfile
-    import pstats
+    #import pstats
     cProfile.run("main()")
-    
