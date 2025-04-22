@@ -68,7 +68,10 @@ def main():
     standard_deviation = finito(core,count)
     print(f"{standard_deviation}")
     
-if __name__ == "__main__":
-    import cProfile
-    #import pstats
-    cProfile.run("main()")
+main()
+
+# Uncomment this part for profiling (table shows in terminal for given input)
+
+#if __name__ == "__main__":
+#    import cProfile
+#    cProfile.run("main()")
