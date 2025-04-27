@@ -30,10 +30,11 @@ pack:
 
 install:
 	mkdir -p ../installer/usr/share/$(NAME)
+	mkdir -p ../installer/usr/share/applications
 	mkdir -p ../installer/usr/share/pixmaps
 	mkdir -p ../installer/usr/bin
 	install $(INSTFLG) math_library.py ../installer/usr/share/$(NAME)
-	install $(INSTFLG) sudo_apt_install_calculator.desktop ../installer/usr/share/$(NAME)
+	install $(INSTFLG) sudo_apt_install_calculator.desktop ../installer/usr/share/applications
 	install $(INSTFLG) saicalculator.xpm ../installer/usr/share/pixmaps
 	install $(INSTFLG) calculator_GUI.py ../installer/usr/bin/
 	install $(INSTFLG) saicalculator ../installer/usr/bin/
