@@ -19,25 +19,29 @@ from PyQt6.QtWidgets import (QApplication, QGridLayout,
 
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
-
-# backspace nejde predtym ako sa zmackne tlacidlo
-# niekedy neviem presne akym sposobom sa len tak nahodou stane ze si to mysly ze je to druhy argument a operator
-#je popritom prazdny
-
-class Window(QWidget):
-    buttons = [
-        '²√', 'a²', 'aˣ', 'C', '⌫',
+#GLOBAL VARIABLES TO SETUP WINDOW AND BUTTON
+font = "Consolas"
+background = 'background: #191919'
+buttons = [
+        '²√', 'a²', 'aˣ', 'C', '±',
         'ˣ√', '7', '8', '9', '/',
         '%', '4', '5', '6', '*',
         '!', '1', '2', '3', '-',
         'π', ',', '0', '=', '+',
     ]
+windowSize = 300, 150, 375, 480
+heightTextDisplay = 50
+
+
+
+class Window(QWidget):
 
     argumentProcessed = 1
     firstArgument = ""
     secondArgument = ""
     operation = ""
     result = ""
+    fullText = ""
 
     ############################################################################
     ## @brief Function to process second root
@@ -46,11 +50,11 @@ class Window(QWidget):
     def secondRoot(self):
         if self.secondArgument != "":
             self.makeNumSecArg()
-            self.secondArgument = str(power(self.secondArgument, 2))
+            self.secondArgument = str(n_root(self.secondArgument, 2))
         else:
             self.operation = ""
             self.makeNumFirstArg()
-            self.firstArgument = str(power(self.firstArgument, 2))
+            self.firstArgument = str(n_root(self.firstArgument, 2))
 
     ############################################################################
     ## @brief Function to process second power
@@ -86,7 +90,24 @@ class Window(QWidget):
     ## @brief Updates display on calculator
     ############################################################################
     def displayUpdate(self):
-        self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+        if (len(self.firstArgument + self.operation + self.secondArgument) > 31):
+            self.displayText.setFont(QFont(font, 12))
+        elif (len(self.firstArgument + self.operation + self.secondArgument) > 15):
+            self.displayText.setFont(QFont(font, 15))
+        else:
+            self.displayText.setFont(QFont(font, 30))
+
+        if (self.secondArgument != ""):
+            self.makeNumSecArg()
+            if(self.secondArgument < 0):
+                self.secondArgument = str(self.secondArgument)
+                self.displayText.setText(self.firstArgument + self.operation + "(" + self.secondArgument + ")")
+            else:
+                self.secondArgument = str(self.secondArgument)
+                self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+        else:
+            self.displayText.setText(self.firstArgument + self.operation + self.secondArgument)
+
         self.displayText.setCursorPosition(0)
 
     ############################################################################
@@ -124,6 +145,8 @@ class Window(QWidget):
                 self.result = n_root(self.secondArgument, self.firstArgument)
             elif self.operation == "%":
                 self.result = modulo(self.firstArgument, self.secondArgument)
+
+
 
     ############################################################################
     ## @brief Processes result to first argument, so we can use it again for calculations
@@ -193,17 +216,18 @@ class Window(QWidget):
             self.secondArgument = str(math.pi)
 
     ############################################################################
-    ## @brief Logic done after clicking backspace
+    ## @brief Changes sign of processed argument
     ############################################################################
-    def backspace(self):
-        if (self.argumentProcessed == 1) and (self.firstArgument != ""):
-            self.firstArgument = self.firstArgument[:-1]
-        else:
-            if self.secondArgument == "":
-                self.operation = ""
-                self.argumentProcessed = 1
-            else:
-                self.secondArgument = self.secondArgument[:-1]
+    def changeSign(self):
+        if self.argumentProcessed == 2 and self.secondArgument != "":
+            self.makeNumSecArg()
+            self.secondArgument *= -1
+            self.secondArgument = str(self.secondArgument)
+        elif self.firstArgument != "":
+            self.makeNumFirstArg()
+            self.firstArgument *= -1
+            self.firstArgument = str(self.firstArgument)
+
 
     ############################################################################
     ## @brief Checks what was clicked and call function for processing
@@ -225,9 +249,10 @@ class Window(QWidget):
             self.numberClicked(buttonText)
 
         elif buttonText == '=':
-            if self.operation != "":
+            if (self.operation != "") and (self.secondArgument != ""):
                 self.equalsClicked()
                 self.isResult("")
+                self.argumentProcessed = 1
         elif buttonText == ",":
             self.commaClicked()
 
@@ -243,8 +268,8 @@ class Window(QWidget):
                 self.secondPower()
             elif buttonText == "!":
                 self.factorial()
-            elif buttonText == '⌫':
-                self.backspace()
+            elif buttonText == '±':
+                self.changeSign()
 
             elif self.secondArgument == "":
                 if buttonText == "aˣ":
@@ -263,13 +288,11 @@ class Window(QWidget):
     def keyPressEvent(self, event: QKeyEvent):
         if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
             keyText = '='
-        elif event.key() in (Qt.Key.Key_Backspace, Qt.Key.Key_Delete):
-            keyText = '⌫'
         else:
             keyText = event.text()
         if keyText == '^':
             keyText = "aˣ"
-        if (keyText in self.buttons) or (keyText == "c"):
+        if (keyText in buttons) or (keyText == "c"):
             self.processClickedCharacter(keyText)
 
     ############################################################################
@@ -326,32 +349,38 @@ class Window(QWidget):
     ############################################################################
     def __init__(self):
         super().__init__()
+
+        #Setup for window
         self.setWindowTitle('Calculator')
         self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(300, 150, 375, 480)
-        self.setStyleSheet('background: #191919')
-        self.font = QFont("Consolas", 22, QFont.Weight.Bold)
+        self.setGeometry(windowSize[0], windowSize[1], windowSize[2], windowSize[3])
+        self.setStyleSheet(background)
+        self.font = QFont(font, 22, QFont.Weight.Bold)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
-        simpleLayout = QVBoxLayout()
+        layout = QVBoxLayout()
 
+
+        #Setup for text box
         self.displayText = QLineEdit()
         self.displayText.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.displayText.setFont(QFont("Consolas", 30))
+        self.displayText.setFont(QFont(font, 30))
         self.displayText.setReadOnly(True)
         self.displayText.setStyleSheet("background-color: #191919; color: white;"
                                        "border-radius: 4px; border: none;")
-        self.displayText.setFixedHeight(70)
-        simpleLayout.addWidget(self.displayText)
+        self.displayText.setFixedHeight(heightTextDisplay)
 
+        layout.addWidget(self.displayText)
+
+
+        #Setup for buttons
         self.gridLayout = QGridLayout()
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(3)
+        self.buttonsCreation(5, buttons)
+        layout.addLayout(self.gridLayout)
 
-        self.buttonsCreation(5, self.buttons)
-
-        simpleLayout.addLayout(self.gridLayout)
-        self.setLayout(simpleLayout)
+        self.setLayout(layout)
 
 
 def main():
