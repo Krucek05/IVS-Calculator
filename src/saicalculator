@@ -1,0 +1,5 @@
+#!/bin/bash
+# -*- coding: utf-8 -*-
+
+DIR_PATH=$(dirname "$0")
+exec python3 "${DIR_PATH}/calculator_GUI.py"
