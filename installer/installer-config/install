@@ -1,0 +1,7 @@
+../usr/bin/calculator_GUI.py /usr/bin
+../usr/bin/saicalculator /usr/bin
+../usr/bin/profiling.py /usr/bin
+../usr/bin/saiprofile /usr/bin
+../usr/share/pixmaps/saicalculator.xpm /usr/share/pixmaps
+../usr/share/sudo_apt_install_calculator/math_library.py /usr/share/sudo_apt_install_calculator
+../usr/share/applications/sudo_apt_install_calculator.desktop /usr/share/applications
