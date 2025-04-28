@@ -15,11 +15,11 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QKeyEvent
 from PyQt6.QtWidgets import (QApplication, QGridLayout,
                              QWidget, QLineEdit, QVBoxLayout, QPushButton,
-                             QSizePolicy)
+                             QSizePolicy, QMessageBox)
 
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
-#GLOBAL VARIABLES TO SETUP WINDOW AND BUTTON
+#GLOBAL VARIABLES TO SETUP WINDOW AND BUTTONS
 font = "Consolas"
 background = 'background: #191919'
 buttons = [
@@ -42,6 +42,7 @@ class Window(QWidget):
     operation = ""
     result = ""
     fullText = ""
+    wasError = False
 
     ############################################################################
     ## @brief Function to process second root
@@ -50,11 +51,19 @@ class Window(QWidget):
     def secondRoot(self):
         if self.secondArgument != "":
             self.makeNumSecArg()
-            self.secondArgument = str(n_root(self.secondArgument, 2))
+            try:
+                self.secondArgument = str(n_root(self.secondArgument, 2))
+            except Exception as e:
+                    self.wasError = True
+                    self.firstArgument = f"Error: {e}"
         else:
             self.operation = ""
             self.makeNumFirstArg()
-            self.firstArgument = str(n_root(self.firstArgument, 2))
+            try:
+                self.firstArgument = str(n_root(self.firstArgument, 2))
+            except Exception as e:
+                    self.wasError = True
+                    self.firstArgument = f"Error: {e}"
 
     ############################################################################
     ## @brief Function to process second power
@@ -62,11 +71,19 @@ class Window(QWidget):
     def secondPower(self):
         if self.secondArgument != "":
             self.makeNumSecArg()
-            self.secondArgument = str(power(self.secondArgument, 2))
+            try:
+                self.secondArgument = str(power(self.secondArgument, 2))
+            except Exception as e:
+                    self.wasError = True
+                    self.firstArgument = f"Error: {e}"
         else:
             self.operation = ""
             self.makeNumFirstArg()
-            self.firstArgument = str(power(self.firstArgument, 2))
+            try:
+                self.firstArgument = str(power(self.firstArgument, 2))
+            except Exception as e:
+                    self.wasError = True
+                    self.firstArgument = f"Error: {e}"
 
     ############################################################################
     ## @brief Converts first argument to int/float based on whether there is comma
@@ -132,21 +149,47 @@ class Window(QWidget):
             self.makeNumFirstArg()
             self.makeNumSecArg()
             if self.operation == "+":
-                self.result = add(self.firstArgument, self.secondArgument)
+                try:
+                    self.result = add(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "-":
-                self.result = sub(self.firstArgument, self.secondArgument)
+                try:
+                    self.result = sub(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "*":
-                self.result = multiply(self.firstArgument, self.secondArgument)
+                try:
+                    self.result = multiply(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "/":
-                self.result = divide(self.firstArgument, self.secondArgument)
+                try:
+                    self.result = divide(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "^":
-                self.result = power(self.firstArgument, self.secondArgument)
+                try:
+                    self.result = power(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "√":
-                self.result = n_root(self.secondArgument, self.firstArgument)
+                try:
+                    self.result = n_root(self.secondArgument, self.firstArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
             elif self.operation == "%":
-                self.result = modulo(self.firstArgument, self.secondArgument)
-
-
+                try:
+                    self.result = modulo(self.firstArgument, self.secondArgument)
+                except Exception as e:
+                    self.wasError = True
+                    self.result = f"Error: {e}"
 
     ############################################################################
     ## @brief Processes result to first argument, so we can use it again for calculations
@@ -202,9 +245,20 @@ class Window(QWidget):
     ############################################################################
     def factorial(self):
         if ('.' not in self.firstArgument) and (not self.secondArgument):
-            self.firstArgument = str(factorial(int(self.firstArgument)))
-        elif '.' not in self.secondArgument:
-            self.secondArgument = str(factorial(int(self.secondArgument)))
+            self.makeNumFirstArg()
+            try:
+                self.firstArgument = str(factorial(self.firstArgument))
+            except Exception as e:
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
+
+        elif '.' not in self.secondArgument and self.secondArgument != "":
+            self.makeNumSecArg()
+            try:
+                self.secondArgument = str(factorial(self.secondArgument))
+            except Exception as e:
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
 
     ############################################################################
     ## @brief Function that makes from processed argument pi
@@ -244,6 +298,11 @@ class Window(QWidget):
     ############################################################################
 
     def processClickedCharacter(self, buttonText):
+        if self.wasError:
+            self.wasError = False
+            self.firstArgument = ""
+            self.secondArgument = ""
+            self.operation = ""
 
         if '0' <= buttonText <= '9':
             self.numberClicked(buttonText)
@@ -345,6 +404,19 @@ class Window(QWidget):
         return button
 
     ############################################################################
+    ## @brief Function that is called when help button is pressed and shows help
+    ############################################################################
+    def showHelp(self):
+        QMessageBox.information(self, "Help", "ˣ√ - xth root of given number (x√a)\t/ - Division\n"
+                                              "²√ - Second root of given number\t* - Multiplication\n"
+                                              "aˣ - xth power of given number (a^x)\t− - Subtraction\n"
+                                              "a² - Second power of given number\t+ - Addition\n"
+                                              "% - Remaining after division\t\t!  - Factorial\n"
+                                              "C - Clears the display\t\t\t= - Result of math operation\n"
+                                              "± - Changes sign of number\t\tπ - Makes argument pi")
+
+
+    ############################################################################
     ## @brief Initializes calculator window and builds all buttons
     ############################################################################
     def __init__(self):
@@ -359,6 +431,25 @@ class Window(QWidget):
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
         layout = QVBoxLayout()
+
+
+        #Setup of Help button
+        helpButton = QPushButton("?")
+        helpButton.setFixedSize(20, 20)
+        helpButton.setStyleSheet("""
+                QPushButton {
+                    border-radius: 10px; border: none;
+                    background-color: #191919;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+                QPushButton:hover {
+                    background-color: #5E5E5E;
+                }""")
+
+        helpButton.clicked.connect(self.showHelp)
+        layout.addWidget(helpButton)
+        layout.setContentsMargins(7,3,7,3)
 
 
         #Setup for text box
