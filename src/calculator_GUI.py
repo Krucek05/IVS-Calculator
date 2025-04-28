@@ -39,7 +39,7 @@ class Window(QWidget):
         elif self.operation == "/":
             #self.result = divide(self.firstArgument, self.secondArgument)
             print("divide")
-        elif self.operation == "aˣ":
+        elif self.operation == "^":
             #self.result = power(self.firstArgument, self.secondArgument)
             print("power")
         elif self.operation == "ˣ√":
@@ -97,7 +97,7 @@ class Window(QWidget):
         self.operation = newOperation
         self.isFactorial = False
         self.secondArgument = ""
-        self.result = ""
+       # self.result = ""
 
     def zero(self, buttonText):
         if self.argumentProcessed == 1 and buttonText != self.firstArgument:
@@ -117,14 +117,28 @@ class Window(QWidget):
         else:
             self.secondArgument = "3.14159"
 
+    def backspace(self):
+        if self.argumentProcessed == 1:
+            self.firstArgument = self.firstArgument[:-1]
+        else:
+            if self.secondArgument == "":
+                self.operation = ""
+                self.argumentProcessed = 1
+            else:
+                self.secondArgument = self.secondArgument[:-1]
+
+
     def buttonClick(self):
         buttonText = self.sender().text()
 
-        if buttonText == "C":
+        if '0' < buttonText and buttonText <= '9':
+           self.numberClicked(buttonText)
+
+        elif buttonText == "C":
             self.clearClicked()
 
-        elif '0' < buttonText and buttonText <= '9':
-           self.numberClicked(buttonText)
+        elif buttonText == '⌫':
+            self.backspace()
 
         elif buttonText == '0':
             self.zero(buttonText)
@@ -150,6 +164,11 @@ class Window(QWidget):
         elif buttonText == 'π':
             self.pi()
 
+        elif buttonText == "aˣ":
+            self.operation = "^"
+            self.isFactorial = False
+            self.argumentProcessed = 2
+
         else:
             if self.secondArgument == "":
                 self.operationClicked(buttonText)
@@ -162,43 +181,9 @@ class Window(QWidget):
 
 
 
-
-
-
-    def __init__(self):
-        super().__init__()
-
-        self.setWindowTitle('Calculator')
-        self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(300, 150, 365, 440)
-        self.setStyleSheet('background: #191919')
-        font = QFont("Consolas", 22, QFont.Weight.Bold)
-
-        simpleLayout = QVBoxLayout()
-
-        self.displayText = QLineEdit()
-        self.displayText.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.displayText.setFont(QFont("Consolas", 35))
-        self.displayText.setReadOnly(True)
-        self.displayText.setStyleSheet("background-color: #191919; color: white;"
-                                       "border-radius: 4px; border: none;")
-        self.displayText.setFixedHeight(70)
-        simpleLayout.addWidget(self.displayText)
-
-        gridLayout = QGridLayout()
-        gridLayout.setContentsMargins(0, 0, 0, 0)
-        gridLayout.setSpacing(3)
-
-        buttons = [
-            '²√', 'a²', 'aˣ', 'C', '⌫',
-            'ˣ√', '7', '8', '9', '/',
-            '%', '4', '5', '6', '*',
-            '!', '1', '2', '3', '-',
-            'π', ',', '0', '=', '+',
-        ]
-
+    def buttonsCreation(self, colAmount, buttonList):
         row, col = 0, 0
-        for symbol in buttons:
+        for symbol in buttonList:
             color = "#333333"
             color2 = "#656565"
             if row < 1 and col > 2:
@@ -211,26 +196,63 @@ class Window(QWidget):
                 color = "#2e4053"
                 color2 = "#5d6d7e"
 
-            button = QPushButton(symbol)
-            button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-            button.setFont(font)
-            button.clicked.connect(self.buttonClick)  # Connect to function
-            button.setStyleSheet("QPushButton {"
-                                 "background-color: %s; color: white;"
-                                 "border-radius: 4px; border:none;}"
-                                 "QPushButton:hover {"
-                                 "background-color: %s; color: white;}" %(color, color2))
-
-            gridLayout.addWidget(button, row, col)  # Add button to the layout
+            button = self.buttonAtributes(symbol, color, color2)
+            self.gridLayout.addWidget(button, row, col)
             col += 1
-            if col > 4:
+            if col > colAmount - 1:
                 row += 1
                 col = 0
 
 
+    def buttonAtributes(self, symbol, color, color2):
+        button = QPushButton(symbol)
+        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        button.setFont(self.font)
+        button.clicked.connect(self.buttonClick)  # Connect to function
+        button.setStyleSheet("QPushButton {"
+                                "background-color: %s; color: white;"
+                                "border-radius: 4px; border:none;}"
+                                "QPushButton:hover {"
+                                "background-color: %s; color: white;}" %(color, color2))
+        return button
 
 
-        simpleLayout.addLayout(gridLayout)
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle('Calculator')
+        self.setWindowIcon(QIcon('icon.png'))
+        self.setGeometry(300, 150, 365, 440)
+        self.setStyleSheet('background: #191919')
+        self.font = QFont("Consolas", 22, QFont.Weight.Bold)
+
+        simpleLayout = QVBoxLayout()
+
+        self.displayText = QLineEdit()
+        self.displayText.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self.displayText.setFont(QFont("Consolas", 35))
+        self.displayText.setReadOnly(True)
+        self.displayText.setStyleSheet("background-color: #191919; color: white;"
+                                       "border-radius: 4px; border: none;")
+        self.displayText.setFixedHeight(70)
+        simpleLayout.addWidget(self.displayText)
+
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(3)
+
+        buttons = [
+            '²√', 'a²', 'aˣ', 'C', '⌫',
+            'ˣ√', '7', '8', '9', '/',
+            '%', '4', '5', '6', '*',
+            '!', '1', '2', '3', '-',
+            'π', ',', '0', '=', '+',
+        ]
+
+        self.buttonsCreation(5, buttons)
+
+        simpleLayout.addLayout(self.gridLayout)
         self.setLayout(simpleLayout)
 
 

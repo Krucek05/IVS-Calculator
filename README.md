@@ -1,31 +1,46 @@
-Environment
----------
+![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue)
+![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
-Platform: Ubuntu 64-bit (Preferred for the project evaluation, but compatible across different platforms)
+# 💻 **IVS PROJECT - CALCULATOR**  
+---------------------------------
 
-Authors
-------
+This is a **calculator application** developed as part of the IVS  course.  
+Its core purpose is to **evaluate mathematical expressions** and provide  **numerical result** 
+---------------------------------
 
-Sudo_Apt_Install_Calculator
-- xrucekk00 -> Kristián Rúček
-- xfigurf00 -> Filip Figúr 
-- xkucikm00 -> Miroslav Kučík
-- xseryra00 -> Rastislav Šerý 
+## 🌍 Environment  
+**Platform:** Ubuntu 64-bit *(Preferred for project evaluation)*  
+✔️ Cross-platform compatible with minor adjustments
 
-Licence
--------
+---------------------------------
 
-This program is distributed under the GNU General Public License v3.0.
+## 👨‍💻 Authors — Team `Sudo_Apt_Install_Calculator`  
+- 🧠 **xrucekk00** → Kristián Rúček  
+- 💡 **xfigurf00** → Filip Figúr  
+- 🛠️ **xkucikm00** → Miroslav Kučík  
+- 🎨 **xseryra00** → Rastislav Šerý  
 
-Features
---------
+----------------------------------
 
-- Basic Operations: Addition, subtraction, multiplication, and division.
+## 🛠️ Features  
+- ➕ **Basic Operations**: Addition `+`, subtraction `-`, multiplication `*`, and division `/`  
+- ❗ **Factorial**: Computes factorial `n!` for non-negative integers  
+- ⬆️ **Exponentiation**: Supports `^` for natural (positive integer) exponents  
+-  √ **General Roots**: Computes general `n`-th roots, including proper error handling for negative inputs  
+-  %  **Modulo**: Supports modulo `%` operation, with handling for division by zero
 
-- Factorial: Computes the factorial of a non-negative integer.
+-----------------------------------
 
-- Exponentiation: Supports exponentiation for natural exponents (positive integers).
+## 📦 Installation
 
-- General Roots: Computes general nth roots for real numbers, including error handling for negative numbers.
+> ⚙️ **Instructions coming soon...**  
+> 
 
-- Modulo: Computes the modulo between two numbers, with error handling for division by zero.
+---
+
+---
+## 🧾 License  
+Distributed under the **GNU General Public License v3.0**  
+Feel free to use, study, and modify this project under the terms of free software.
+
+---
