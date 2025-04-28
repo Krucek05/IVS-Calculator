@@ -79,7 +79,7 @@ def n_root(a,b):
 ## @throws ValueError if the input is float, negative or greater than 20
 def factorial(a):
     if (isinstance(a,float)): # Basic factorial function is defined only for positive integers
-        raise ValueError("Floats are not allowed")
+        raise ValueError("Decimal numbers are not allowed")
     if (a < 0): 
         raise ValueError("Factorial expects positive integer or zero\n")
     if (a > 20): # 20! = 2_432_902_008_176_640_000, it should be enough
