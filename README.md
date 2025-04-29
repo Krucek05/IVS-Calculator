@@ -1,4 +1,4 @@
-![License](https://img.shields.io/badge/any_text-you_like-blue)
+![License](https://img.shields.io/badge/License-GNU_gpl-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
 ## 📚 Table of Contents
