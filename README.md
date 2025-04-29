@@ -1,4 +1,4 @@
-![License](https://img.shields.io/badge/License-GNU_GPL-blue)
+[![License](https://img.shields.io/badge/License-GNU_GPL-blue)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![Installation Package](https://img.shields.io/badge/Version-1.0-brightgreen)](https://github.com/Krucek05/IVS-Calculator/releases)
 
 ## 📚 Table of Contents
