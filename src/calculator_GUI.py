@@ -10,6 +10,7 @@
 
 import math
 import sys
+from config import Configuration
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QKeyEvent
@@ -19,23 +20,7 @@ from PyQt6.QtWidgets import (QApplication, QGridLayout,
 
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
-#GLOBAL VARIABLES TO SETUP WINDOW AND BUTTONS
-font = "Consolas"
-background = 'background: #191919'
-buttons = [
-        '²√', 'a²', 'aˣ', 'C', '±',
-        'ˣ√', '7', '8', '9', '/',
-        '%', '4', '5', '6', '*',
-        '!', '1', '2', '3', '-',
-        'π', ',', '0', '=', '+',
-    ]
-windowSize = 300, 150, 375, 480
-heightTextDisplay = 50
-
-
-
 class Window(QWidget):
-
     argumentProcessed = 1
     firstArgument = ""
     secondArgument = ""
@@ -54,16 +39,16 @@ class Window(QWidget):
             try:
                 self.secondArgument = str(n_root(self.secondArgument, 2))
             except Exception as e:
-                    self.wasError = True
-                    self.firstArgument = f"Error: {e}"
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
         else:
             self.operation = ""
             self.makeNumFirstArg()
             try:
                 self.firstArgument = str(n_root(self.firstArgument, 2))
             except Exception as e:
-                    self.wasError = True
-                    self.firstArgument = f"Error: {e}"
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
 
     ############################################################################
     ## @brief Function to process second power
@@ -74,16 +59,16 @@ class Window(QWidget):
             try:
                 self.secondArgument = str(power(self.secondArgument, 2))
             except Exception as e:
-                    self.wasError = True
-                    self.firstArgument = f"Error: {e}"
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
         else:
             self.operation = ""
             self.makeNumFirstArg()
             try:
                 self.firstArgument = str(power(self.firstArgument, 2))
             except Exception as e:
-                    self.wasError = True
-                    self.firstArgument = f"Error: {e}"
+                self.wasError = True
+                self.firstArgument = f"Error: {e}"
 
     ############################################################################
     ## @brief Converts first argument to int/float based on whether there is comma
@@ -107,16 +92,16 @@ class Window(QWidget):
     ## @brief Updates display on calculator
     ############################################################################
     def displayUpdate(self):
-        if (len(self.firstArgument + self.operation + self.secondArgument) > 31):
-            self.displayText.setFont(QFont(font, 12))
-        elif (len(self.firstArgument + self.operation + self.secondArgument) > 15):
-            self.displayText.setFont(QFont(font, 15))
+        if len(self.firstArgument + self.operation + self.secondArgument) > 31:
+            self.displayText.setFont(QFont(Configuration.font, 12))
+        elif len(self.firstArgument + self.operation + self.secondArgument) > 15:
+            self.displayText.setFont(QFont(Configuration.font, 15))
         else:
-            self.displayText.setFont(QFont(font, 30))
+            self.displayText.setFont(QFont(Configuration.font, 30))
 
-        if (self.secondArgument != ""):
+        if self.secondArgument != "":
             self.makeNumSecArg()
-            if(self.secondArgument < 0):
+            if self.secondArgument < 0:
                 self.secondArgument = str(self.secondArgument)
                 self.displayText.setText(self.firstArgument + self.operation + "(" + self.secondArgument + ")")
             else:
@@ -282,7 +267,6 @@ class Window(QWidget):
             self.firstArgument *= -1
             self.firstArgument = str(self.firstArgument)
 
-
     ############################################################################
     ## @brief Checks what was clicked and call function for processing
     ############################################################################
@@ -351,7 +335,7 @@ class Window(QWidget):
             keyText = event.text()
         if keyText == '^':
             keyText = "aˣ"
-        if (keyText in buttons) or (keyText == "c"):
+        if (keyText in Configuration.buttons) or (keyText == "c"):
             self.processClickedCharacter(keyText)
 
     ############################################################################
@@ -364,17 +348,17 @@ class Window(QWidget):
     def buttonsCreation(self, colAmount, buttonList):
         row, col = 0, 0
         for symbol in buttonList:
-            color = "#333333"
-            color2 = "#656565"
+            color = Configuration.bottomLineColor
+            color2 = Configuration.bottomLineColorHovered
             if row < 1 and col > 2:
-                color = " #212f3d"
-                color2 = "#34495e"
+                color = Configuration.clearColor
+                color2 = Configuration.clearColorHovered
             if '0' <= symbol <= '9':
-                color = "#424949"
-                color2 = "#7f8c8d"
+                color = Configuration.numbersColor
+                color2 = Configuration.numbersColorHovered
             if (row > 0 and col > 3) or (row == 0 and col < 3) or (col < 1 and row < 4):
-                color = "#2e4053"
-                color2 = "#5d6d7e"
+                color = Configuration.operationColor
+                color2 = Configuration.operationColorHovered
 
             button = self.buttonAttributes(symbol, color, color2)
             self.gridLayout.addWidget(button, row, col)
@@ -396,25 +380,19 @@ class Window(QWidget):
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         button.setFont(self.font)
         button.clicked.connect(self.buttonClick)  # Connect to function
-        button.setStyleSheet("QPushButton {"
-                             "background-color: %s; color: white;"
-                             "border-radius: 4px; border:none;}"
-                             "QPushButton:hover {"
-                             "background-color: %s; color: white;}" % (color, color2))
+        button.setStyleSheet(Configuration.buttonStyle % (color, color2))
         return button
 
     ############################################################################
     ## @brief Function that is called when help button is pressed and shows help
     ############################################################################
     def showHelp(self):
-        QMessageBox.information(self, "Help", "ˣ√ - xth root of given number (x√a)\t/ - Division\n"
-                                              "²√ - Second root of given number\t* - Multiplication\n"
-                                              "aˣ - xth power of given number (a^x)\t− - Subtraction\n"
-                                              "a² - Second power of given number\t+ - Addition\n"
-                                              "% - Remaining after division\t\t!  - Factorial\n"
-                                              "C - Clears the display\t\t\t= - Result of math operation\n"
-                                              "± - Changes sign of number\t\tπ - Makes argument pi")
-
+        message = QMessageBox()
+        message.setWindowTitle("Help")
+        message.setText(Configuration.helpText)
+        message.setIcon(QMessageBox.Icon.Question)
+        message.setStyleSheet(Configuration.helpStyle)
+        message.exec()
 
     ############################################################################
     ## @brief Initializes calculator window and builds all buttons
@@ -423,52 +401,39 @@ class Window(QWidget):
         super().__init__()
 
         #Setup for window
-        self.setWindowTitle('Calculator')
-        self.setWindowIcon(QIcon('icon.png'))
-        self.setGeometry(windowSize[0], windowSize[1], windowSize[2], windowSize[3])
-        self.setStyleSheet(background)
-        self.font = QFont(font, 22, QFont.Weight.Bold)
+        self.setWindowTitle(Configuration.windowTitle)
+        self.setWindowIcon(QIcon(Configuration.icon))
+        self.setGeometry(Configuration.windowSize[0], Configuration.windowSize[1], Configuration.windowSize[2], Configuration.windowSize[3])
+        self.setStyleSheet("background: %s" % Configuration.background)
+        self.font = QFont(Configuration.font, 22, QFont.Weight.Bold)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
         layout = QVBoxLayout()
 
-
         #Setup of Help button
         helpButton = QPushButton("?")
         helpButton.setFixedSize(20, 20)
-        helpButton.setStyleSheet("""
-                QPushButton {
-                    border-radius: 10px; border: none;
-                    background-color: #191919;
-                    font-size: 15px;
-                    font-weight: bold;
-                }
-                QPushButton:hover {
-                    background-color: #5E5E5E;
-                }""")
+        helpButton.setStyleSheet(Configuration.helpButtonStyle)
 
         helpButton.clicked.connect(self.showHelp)
         layout.addWidget(helpButton)
-        layout.setContentsMargins(7,3,7,3)
-
+        layout.setContentsMargins(7, 3, 7, 3)
 
         #Setup for text box
         self.displayText = QLineEdit()
         self.displayText.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.displayText.setFont(QFont(font, 30))
+        self.displayText.setFont(QFont(Configuration.font, 30))
         self.displayText.setReadOnly(True)
-        self.displayText.setStyleSheet("background-color: #191919; color: white;"
-                                       "border-radius: 4px; border: none;")
-        self.displayText.setFixedHeight(heightTextDisplay)
+        self.displayText.setStyleSheet(Configuration.displayStyle % Configuration.background)
+        self.displayText.setFixedHeight(Configuration.heightTextDisplay)
 
         layout.addWidget(self.displayText)
-
 
         #Setup for buttons
         self.gridLayout = QGridLayout()
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(3)
-        self.buttonsCreation(5, buttons)
+        self.buttonsCreation(5, Configuration.buttons)
         layout.addLayout(self.gridLayout)
 
         self.setLayout(layout)
