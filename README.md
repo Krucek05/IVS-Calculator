@@ -1,5 +1,13 @@
 ![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
+## 📚 Table of Contents
+- [Environment](#-environment)
+- [Authors](#-authors--team-sudo_apt_install_calculator)
+- [Features](#-features)
+- [Dependencies](#-dependencies)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [License](#-license)
 
 # 💻 **IVS PROJECT - CALCULATOR**  
 ---------------------------------
@@ -31,11 +39,14 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 
 -----------------------------------
 
-## 📦 Installation
+## ⚙️ Installation
 
-> ⚙️ **Instructions coming soon...**  
-> 
+Clone the repository and install dependencies:
 
+```bash
+git clone https://github.com/your-username/ivs-calculator.git
+cd ivs-calculator
+sudo apt install python3-pyqt6  
 ---
 
 ---
