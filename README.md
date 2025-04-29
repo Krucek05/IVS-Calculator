@@ -3,6 +3,7 @@
 
 ## 📚 Table of Contents
 - [Environment](#-environment)
+- [GUI](#-GUI Preview)
 - [Authors](#-authors--team-sudo_apt_install_calculator)
 - [Features](#-features)
 - [Installation](#-installation)
@@ -20,6 +21,14 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 ✔️ Cross-platform compatible with minor adjustments
 
 ---------------------------------
+
+## 🖥️ GUI Preview
+-  Mouse support: Clickable buttons for all operations
+- ⌨️ Keyboard support: Type directly using number keys and operators
+
+(image.png)
+
+---------------------
 
 ## 👨‍💻 Authors — Team `Sudo_Apt_Install_Calculator`  
 - 🧠 **xrucekk00** → Kristián Rúček  
