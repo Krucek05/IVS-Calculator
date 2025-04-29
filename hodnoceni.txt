@@ -1,4 +1,4 @@
-xlogin01 100 (základ GUI a základní mat. operace)
-xlogin02 100 (pokročilé mat. operace)
-xlogin03 90 (profiling, instalátor)
-xlogin04 110 (testy, dokumentace)
+xrucekk00 100 (testy,kontrola kvality, Priručka pre uživateľa,Mockup,správa gitu)
+xfigurf00 100 (Math_library,Profilling,Mockup)
+xkucikm00 100 (instalátor,Makefile,Doxygen,Mockup)
+xseryra00 100 (GUI,Mockup)
