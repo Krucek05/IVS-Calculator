@@ -1,12 +1,11 @@
 ![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
+
 ## 📚 Table of Contents
 - [Environment](#-environment)
 - [Authors](#-authors--team-sudo_apt_install_calculator)
 - [Features](#-features)
-- [Dependencies](#-dependencies)
 - [Installation](#-installation)
-- [Usage](#-usage)
 - [License](#-license)
 
 # 💻 **IVS PROJECT - CALCULATOR**  
@@ -47,10 +46,11 @@ Clone the repository and install dependencies:
 git clone https://github.com/your-username/ivs-calculator.git
 cd ivs-calculator
 sudo apt install python3-pyqt6  
----
+```
 
 ---
 ## 🧾 License  
+
 Distributed under the **GNU General Public License v3.0**  
 Feel free to use, study, and modify this project under the terms of free software.
 
