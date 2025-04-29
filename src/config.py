@@ -26,7 +26,7 @@ class Configuration:
     icon = "icon.png"
     windowTitle = 'Calculator'
 
-    font = "Consolas"
+    font = "Roboto"
 
     background = "#191919"
 
