@@ -26,7 +26,7 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 - 🖱️Mouse support: Clickable buttons for all operations
 - ⌨️ Keyboard support: Type directly using number keys and operators
 
-![Calculator GUI](image.png)
+![Calculator GUI](screenshot.png)
 
 ---------------------
 
