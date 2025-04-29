@@ -57,6 +57,7 @@ class Configuration:
                     QPushButton {
                                 border-radius: 10px; border: none;
                                 background-color: #191919;
+                                color: white;
                                 font-size: 15px;
                                 font-weight: bold;
                                 }
