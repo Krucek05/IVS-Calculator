@@ -1,9 +1,9 @@
-![License](https://img.shields.io/badge/License-GNU_gpl-blue)
+![License](https://img.shields.io/badge/License-GNU_GPL-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
 ## 📚 Table of Contents
 - [Environment](#-environment)
-- [GUI](#-GUI-Preview)
+- [GUI-Preview](#-GUI-Preview)
 - [Authors](#-authors--team-sudo_apt_install_calculator)
 - [Features](#-features)
 - [Installation](#-installation)
