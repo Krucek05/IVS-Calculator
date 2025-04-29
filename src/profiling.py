@@ -53,7 +53,10 @@ def formula_core(data,average):
 ## @param count Number of values 
 ## @return Standard deviation for given data
 def finito(core,count):
-    fraction = divide(1,count-1)
+    if (count == 1):
+        fraction = divide(1,1)
+    else:
+        fraction = divide(1,count-1)
     under_square_root = multiply(fraction,core)
     result = n_root(under_square_root,2)
     return result
