@@ -1,6 +1,5 @@
 ![License](https://img.shields.io/badge/License-GNU_GPL-blue)
-![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
-[installation package](https://github.com/Krucek05/IVS-Calculator/releases)
+[![Installation Package](https://img.shields.io/badge/Version-1.0-brightgreen)](https://github.com/Krucek05/IVS-Calculator/releases)
 
 ## 📚 Table of Contents
 - [Environment](#-environment)
