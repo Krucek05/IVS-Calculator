@@ -1,5 +1,6 @@
 ![License](https://img.shields.io/badge/License-GNU_GPL-blue)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
+[installation package](https://github.com/Krucek05/IVS-Calculator/releases)
 
 ## 📚 Table of Contents
 - [Environment](#-environment)
@@ -12,7 +13,7 @@
 # 💻 **IVS PROJECT - CALCULATOR**  
 ---------------------------------
 
-This is a **calculator application** developed as part of the IVS  course.  
+This is a **calculator application** developed as part of the IVS course at Brno University of technology.  .  
 Its core purpose is to **evaluate mathematical expressions** and provide  **numerical result** 
 ---------------------------------
 
@@ -41,7 +42,7 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 ## 🛠️ Features  
 - ➕ **Basic Operations**: Addition `+`, subtraction `-`, multiplication `*`, and division `/`  
 - ❗ **Factorial**: Computes factorial `n!` for non-negative integers  
-- ⬆️ **Exponentiation**: Supports `^` for natural (positive integer) exponents  
+- ⬆️ **Exponentiation**: Supports `^` for all exponents  
 -  √ **General Roots**: Computes general `n`-th roots, including proper error handling for negative inputs  
 -  %  **Modulo**: Supports modulo `%` operation, with handling for division by zero
 
@@ -49,7 +50,9 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 
 ## ⚙️ Installation
 
-Clone the repository and install dependencies:
+You can find the [installation package here](https://github.com/Krucek05/IVS-Calculator/releases).
+
+or clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/your-username/ivs-calculator.git
