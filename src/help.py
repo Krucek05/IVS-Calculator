@@ -32,6 +32,7 @@ class helpWindow(QDialog):
         grid = QGridLayout()
         for i in range(len(text)):
             textAdd = QLabel(text[i])
+            textAdd.setStyleSheet("color: white")
             textAdd.setFont(self.font)
             grid.addWidget(textAdd, i // columns, i % columns)
         layout.addLayout(grid)

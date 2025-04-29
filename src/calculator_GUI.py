@@ -17,7 +17,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QKeyEvent
 from PyQt6.QtWidgets import (QApplication, QGridLayout,
                              QWidget, QLineEdit, QVBoxLayout, QPushButton,
-                             QSizePolicy, QMessageBox)
+                             QSizePolicy)
 
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
