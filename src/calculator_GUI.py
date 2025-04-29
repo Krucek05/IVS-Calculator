@@ -185,7 +185,11 @@ class Window(QWidget):
     ## was used it adds it after the first argument
     ############################################################################
     def isResult(self, newOperation):
-        self.firstArgument = str(self.result)
+        try:
+            self.firstArgument = str(self.result)
+        except:
+            self.wasError = True
+            self.firstArgument = "Error: Result has too many digits"
         self.operation = newOperation
         self.secondArgument = ""
         self.result = ""
