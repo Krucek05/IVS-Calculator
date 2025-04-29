@@ -35,6 +35,7 @@ create_debian:
 	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/control ./
 	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/copyright ./
 	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/install ./
+	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/postrm.ex ./
 
 create_dpkg:
 	-cd ../installer && rm -r usr
