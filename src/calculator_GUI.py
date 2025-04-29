@@ -11,6 +11,7 @@
 import math
 import sys
 from config import Configuration
+from help import helpWindow
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QKeyEvent
@@ -387,12 +388,8 @@ class Window(QWidget):
     ## @brief Function that is called when help button is pressed and shows help
     ############################################################################
     def showHelp(self):
-        message = QMessageBox()
-        message.setWindowTitle("Help")
-        message.setText(Configuration.helpText)
-        message.setIcon(QMessageBox.Icon.Question)
-        message.setStyleSheet(Configuration.helpStyle)
-        message.exec()
+        help = helpWindow()
+        help.exec()
 
     ############################################################################
     ## @brief Initializes calculator window and builds all buttons

@@ -65,27 +65,15 @@ class Configuration:
                             background-color: #5E5E5E;
                             }"""
 
-    helpText = ("ˣ√ - xth root of given number (x√a)\t/ - Division\n"
-                "²√ - Second root of given number\t* - Multiplication\n"
-                "aˣ - xth power of given number (a^x)\t− - Subtraction\n"
-                "a² - Second power of given number\t+ - Addition\n"
-                "% - Remaining after division\t\t!  - Factorial\n"
-                "C - Clears the display\t\t\t= - Result of math operation\n"
-                "± - Changes sign of number\t\tπ - Makes argument pi")
+    helpColumns = 2
 
-    helpStyle = """
-                QMessageBox {
-                            background-color: #222;
-                            color: white;
-                            font-size: 13px;
-                            }
-                QPushButton {
-                            background-color: #444;
-                            color: white;
-                            border-radius: 5px;
-                            padding: 4px 10px;
-                            }
-            QPushButton:hover {
-                            background-color: #666;
-                            }
-                        """
+    helpTitle = "Help"
+
+
+    helpText = ("ˣ√ - xth root of given number (x√a)", "/ - Division",
+                "²√ - Second root of given number", "* - Multiplication",
+                "aˣ - xth power of given number (a^x) ", "− - Subtraction",
+                "a² - Second power of given number", "+ - Addition",
+                "% - Remaining after division","! - Factorial",
+                "C - Clears the display","= - Result of math operation",
+                "± - Changes sign of number", "π - Makes argument pi")
