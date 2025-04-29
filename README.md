@@ -3,7 +3,7 @@
 
 ## 📚 Table of Contents
 - [Environment](#-environment)
-- [GUI](#-GUI Preview)
+- [GUI](#-GUI-Preview)
 - [Authors](#-authors--team-sudo_apt_install_calculator)
 - [Features](#-features)
 - [Installation](#-installation)
@@ -22,11 +22,11 @@ Its core purpose is to **evaluate mathematical expressions** and provide  **nume
 
 ---------------------------------
 
-## 🖥️ GUI Preview
--  Mouse support: Clickable buttons for all operations
+## 🖥️ GUI-Preview
+- 🖱️Mouse support: Clickable buttons for all operations
 - ⌨️ Keyboard support: Type directly using number keys and operators
 
-(image.png)
+![Calculator GUI](image.png)
 
 ---------------------
 
