@@ -1,4 +1,4 @@
-![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue)
+![License](https://www.gnu.org/licenses/gpl-3.0.html)
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
 ## 📚 Table of Contents
