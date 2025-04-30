@@ -1,7 +1,7 @@
 ############################################################################
 # @file math_library_tests.py
 # @brief Calculator Tests for IVS 2025
-# @date 23.3.2025
+# @date 23.3.2022
 # @author: Kristian Rucek <xrucekk00>
 #
 # Implemenation of tests for calculator library
@@ -14,14 +14,16 @@ import unittest
 import math
 from math_library import add, sub, multiply, divide, power, n_root, factorial, modulo
 
-## 
-# @class CalculatorBasicFunctions
-# @brief A calculator class that performs basic arithmetic operations.
-##
 class CalculatorBasicFunctions(unittest.TestCase) :
+  """ 
+  @class CalculatorBasicFunctions
+  @brief A calculator class that performs basic arithmetic operations.
+  """
   
-  ## @brief Test the add function with equivalence classes.
   def test_add(self):
+    """
+    @brief Test the add function with equivalence classes.
+    """
     self.assertEqual(add(1, 2), 3)
     self.assertEqual(add(1000, 157), 1157)
     self.assertEqual(add(110545545, 4454515), 115000060)
@@ -36,8 +38,10 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     self.assertTrue(math.isclose(add(1.0000001, 2.0000002), 3.0000003, rel_tol=1e-9))
     self.assertTrue(math.isclose(add(-0.54321, 0.54321), 0.0, rel_tol=1e-9))
   
-  ## @brief Test the sub function with equivalence classes.
   def test_sub(self):
+    """
+    @brief Test the sub function with equivalence classes.
+    """
     self.assertEqual(sub(1, 2), -1)
     self.assertEqual(sub(1000, 157), 843)
     self.assertEqual(sub(110545545, 4454515), 106091030)
@@ -52,11 +56,13 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     self.assertTrue(math.isclose(sub(5.5, 2.2), 3.3, rel_tol=1e-9))
     self.assertTrue(math.isclose(sub(-10.1, -5.05), -5.05, rel_tol=1e-9))
 
-  ## @brief Test the multiply function with equivalence classes.
   def test_multiply(self):
+    """
+    @brief Test the multiply function with equivalence classes.
+    """
     self.assertEqual(multiply(1, 2), 2)
     self.assertEqual(multiply(1000, 157), 157000)
-    self.assertEqual(multiply(110545545, 4454515), 492439722629717)
+    self.assertEqual(multiply(110545545, 4454515), 492426788385675)
     self.assertEqual(multiply(2147483647, 1), 2147483647)
     self.assertEqual(multiply(-1, 1), -1)
     self.assertEqual(multiply(0, 0), 0)
@@ -64,87 +70,95 @@ class CalculatorBasicFunctions(unittest.TestCase) :
     self.assertEqual(multiply(-1, -1), 1)
     self.assertEqual(multiply(-1000, -145), 145000)
     self.assertEqual(multiply(-2147483648, -1), 2147483648)
-    self.assertTrue(math.isclose(multiply(0.1234, 0.9876), 0.12189984, rel_tol=1e-9))
+    self.assertEqual(multiply(-2.5, 4.0), -10)
+    self.assertTrue(math.isclose(multiply(0.1234, 0.9876), 0.12186984, rel_tol=1e-9))
     self.assertTrue(math.isclose(multiply(3.14159, 2.0), 6.28318, rel_tol=1e-9))
-    self.assertTrue(math.isclose(multiply(-2.5, 4.0), -10.0, rel_tol=1e-9))
 
-  ## @brief Test the divide function with equivalence classes.
   def test_divide(self):
-    self.assertEqual(divide(1, 2), 0.5)# to check precision
-    self.assertEqual(divide(110545545, 4454515), 24.8)
+    """
+    @brief Test the divide function with equivalence classes.
+    """
+    self.assertEqual(divide(1, 2), 0.5)
     self.assertEqual(divide(2147483647, 1), 2147483647)
     self.assertEqual(divide(-1, 1), -1)
     self.assertEqual(divide(0, 1), 0)
     self.assertEqual(divide(1, -1), -1)
     self.assertEqual(divide(-1, -1), 1)
     self.assertEqual(divide(-2147483648, -1), 2147483648)
-    self.assertTrue(math.isclose(divide(0.9876, 0.1234), 8.00486, rel_tol=1e-5))
+    self.assertTrue(math.isclose(divide(110545545, 4454515), 24.81651650067404, rel_tol=1e-9))
+    self.assertTrue(math.isclose(divide(0.9876, 0.1234),  8.003241491, rel_tol=1e-9))
     self.assertTrue(math.isclose(divide(5.5, 2.2), 2.5, rel_tol=1e-9))
-    self.assertTrue(math.isclose(divide(-10.1, -5.05), 2.0, rel_tol=1e-9))
+    self.assertEqual(divide(-10.1, -5.05), 2)
     
   def test_divide_by_zero(self):
       with self.assertRaises(ZeroDivisionError):
          divide(10, 0)  # This should raise ZeroDivisionError
 
-##
-# @class CalculatorAdvancedFunctions
-# @brief A calculator class that performs advanced arithmetic operations.
-##
 class CalculatorAdvancedFunctions(unittest.TestCase) :
-
-  ## @brief Test the exponent function with equivalence classes.
+  """ 
+  @class CalculatorAdvancedFunctions
+  @brief A calculator class that performs advanced arithmetic operations.
+  """
   def test_power(self):
+    """
+    @brief Test the exponent function with equivalence classes.
+    """
     self.assertEqual(power(2, 3), 8)
     self.assertEqual(power(5, 0), 1)
     self.assertEqual(power(0, 5), 0)
     self.assertEqual(power(0, 0), 1)
     self.assertEqual(power(-2, 3), -8)
     self.assertEqual(power(2, -3), 0.125)
-    self.assertTrue(math.isclose(power(2, 0.5), 1.414213562, rel_tol=1e-9))  # Square root of 2
+    self.assertTrue(math.isclose(power(2, 0.5), math.sqrt(2), rel_tol=1e-9))  # Square root of 2
     self.assertEqual(power(10, 2), 100)
     self.assertEqual(power(-3, 2), 9)  
 
-
-  ## @brief Test the square_root function with equivalence classes.
   def test_n_root(self):
-    self.assertTrue(math.isclose(n_root(4, 2), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(27, 3), 3, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(81, 4), 3, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(16, 2), 4, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1000, 3), 10, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(100, 2), 10, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1024, 10), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(256, 8), 2, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(1, 3), 1, rel_tol=1e-9))
-    self.assertTrue(math.isclose(n_root(625, 4), 5, rel_tol=1e-9))
-    self.assertRaises(ValueError, n_root, -16, 0.5)  # should raise error (floats are not allowed)
-    self.assertRaises(ValueError, n_root, -1, 3)  #should raise error (negatives are not allowed)
+    """
+    @brief Test the square_root function with equivalence classes.
+    """
+    self.assertEqual(n_root(4, 2), 2)
+    self.assertEqual(n_root(27, 3), 3)
+    self.assertEqual(n_root(81, 4), 3)
+    self.assertEqual(n_root(16, 2), 4)
+    self.assertEqual(n_root(1000, 3), 10)
+    self.assertEqual(n_root(100, 2), 10)
+    self.assertEqual(n_root(1024, 10), 2)
+    self.assertEqual(n_root(256, 8), 2)
+    self.assertEqual(n_root(1, 3), 1)
+    self.assertEqual(n_root(-8, 3), -2)
+    self.assertEqual(n_root(625, 4), 5)
+    self.assertEqual(n_root(5, 0.5), 25)
     self.assertRaises(ValueError, n_root, 0, 0)  # should raise error
     self.assertRaises(ValueError, n_root, -1, -1)  # should raise error (negatives are not allowed)
     self.assertRaises(ValueError, n_root, 1, 0)  # should raise error
     self.assertRaises(ValueError, n_root, 0, -3)  # should raise error (negatives are not allowed)
     
-  ## @brief Test the factorial function with equivalence classes.
   def test_factorial(self):
+    """
+    @brief Test the factorial function with equivalence classes.
+    """
     self.assertEqual(factorial(0), 1)
     self.assertEqual(factorial(1), 1)
     self.assertEqual(factorial(5), 120)
     self.assertEqual(factorial(10), 3628800)
     self.assertEqual(factorial(20), 2432902008176640000)
-    self.assertRaises(ValueError, factorial, 21) # should raise error, too big
+    self.assertRaises(ValueError, factorial, 51) # should raise error, too big
     self.assertRaises(ValueError, factorial, -1)  # should raise error (negatives are not allowed)
     self.assertRaises(ValueError, factorial, -10) # should raise error (negatives are not allowed)
     self.assertRaises(ValueError, factorial, 2.5) # should raise error (floats are not allowed)
     
-  ## @brief Test the modulo function with equivalence classes.
   def test_modulo(self):
+    """
+    @brief Test the modulo function with equivalence classes.
+    """
     self.assertEqual(modulo(0,1), 0)
-    #self.assertEqual(modulo(5.2), 1)
+    self.assertEqual(modulo(5,2), 1)
     self.assertEqual(modulo(5,5), 0)
     self.assertEqual(modulo(10,1), 0)
     self.assertEqual(modulo(2000,7), 5)
-    #self.assertEqual(modulo(-1, 2), -1) 
-    #self.assertEqual(modulo(2, -3), 2)
+    self.assertEqual(modulo(-1, 2), 1) 
+    self.assertEqual(modulo(2, -3), -1)
     self.assertEqual(modulo(-40, -6), -4) 
     self.assertEqual(modulo(999, 1000), 999)
     self.assertEqual(modulo(1000, 999), 1)
@@ -154,5 +168,5 @@ class CalculatorAdvancedFunctions(unittest.TestCase) :
     self.assertTrue(math.isclose(modulo(0.3, 0.1), 0.0, rel_tol=1e-9))
     self.assertRaises(ValueError, modulo, 5645, 0)  # Should raise an error (division by zero)
 
-  if __name__ == "__main__":
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()
