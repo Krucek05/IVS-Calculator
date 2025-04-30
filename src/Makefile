@@ -38,9 +38,9 @@ create_debian:
 	-cd ../installer && rm -r $(NAME-VERSION)
 	mkdir -p ../installer/$(NAME-VERSION)
 	cd ../installer/$(NAME-VERSION) && dh_make -e ivs@vutbr.cz -n -s -y -c gpl3
-	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/control ./
-	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/copyright ./
-	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../installer-config/install ./
+	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../../src/installer-config/control ./
+	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../../src/installer-config/copyright ./
+	cd ../installer/$(NAME-VERSION)/debian && cp -a -f ../../../src/installer-config/install ./
 
 create_dpkg:
 	-cd ../installer && rm -r usr
