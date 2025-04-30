@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Qt;Education;
+Exec=saicalculator
+GenericName=Simple_Calculator
+Icon=/usr/share/pixmaps/saicalculator.xpm
+Name=saicalculator
+Type=Application
+X-KDE-StartupNotify=false
+Name[en_US]=sudo.apt.install.calculator

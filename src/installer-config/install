@@ -1,0 +1,10 @@
+../usr/share/sudo_apt_install_calculator/calculator_GUI.py /usr/share/sudo_apt_install_calculator/
+../usr/bin/saicalculator /usr/bin
+../usr/share/sudo_apt_install_calculator/profiling.py /usr/share/sudo_apt_install_calculator/
+../usr/bin/stddev /usr/bin
+../usr/share/pixmaps/saicalculator.xpm /usr/share/pixmaps
+../usr/share/sudo_apt_install_calculator/math_library.py /usr/share/sudo_apt_install_calculator
+../usr/share/sudo_apt_install_calculator/config.py /usr/share/sudo_apt_install_calculator
+../usr/share/sudo_apt_install_calculator/help.py /usr/share/sudo_apt_install_calculator
+../usr/share/applications/sudo_apt_install_calculator.desktop /usr/share/applications
+../usr/bin/sairemove /usr/bin/

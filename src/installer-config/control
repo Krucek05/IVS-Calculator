@@ -1,0 +1,13 @@
+Source: sudo.apt.install.calculator
+Section: Education
+Priority: extra
+Maintainer: xrucekk00_xfigurf00_xkucikm00_xseryra00 <ivs@vutbr.cz>
+Build-Depends: debhelper (>= 13), debhelper-compat (= 13)
+Standards-Version: 4.6.0
+
+Package: sudo.apt.install.calculator
+Architecture: any
+Depends: ${misc:Depends}, python3, python3-pyqt6
+Description: sudo_apt_install_calculator
+ Made by Kristian Rucek, Rastislav Sery, Filip Figur and Miroslav Kucik.
+ If python3 or python3-pyqt6 are not found, then they will be installed too.

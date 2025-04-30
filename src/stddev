@@ -1,0 +1,10 @@
+#!/bin/env bash
+# -*- coding: utf-8 -*-
+# saiprofile means sudo_apt_install_profiler (based of our team's name)
+
+
+if [ -f "/usr/share/sudo_apt_install_calculator/profiling.py" ]; then
+    exec python3 "/usr/share/sudo_apt_install_calculator/profiling.py"
+else
+    exec python3 "./profiling.py"
+fi

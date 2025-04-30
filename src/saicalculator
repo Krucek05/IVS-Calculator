@@ -1,0 +1,10 @@
+#!/bin/env bash
+# -*- coding: utf-8 -*-
+# saicalculator means sudo_apt_install_calculator (based of our team's name)
+
+
+if [ -f "/usr/share/sudo_apt_install_calculator/calculator_GUI.py" ]; then
+    exec python3 "/usr/share/sudo_apt_install_calculator/calculator_GUI.py"
+else
+    exec python3 "./calculator_GUI.py"
+fi
