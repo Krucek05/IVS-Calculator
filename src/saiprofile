@@ -1,6 +1,0 @@
-#!/bin/bash
-# -*- coding: utf-8 -*-
-# saiprofile means sudo_apt_install_profiler (based of our team's name)
-
-DIR_PATH=$(dirname "$0")
-exec python3 "${DIR_PATH}/profiling.py"

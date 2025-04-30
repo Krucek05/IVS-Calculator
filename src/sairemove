@@ -1,0 +1,42 @@
+#!/bin/env bash
+# -*- coding: utf-8 -*-
+# sairemove is a script used for complete and safe unistallation from user computer
+
+set -e
+
+echo "Do you want to remove sudo.apt.install.calculator? [y/N]"
+read -r input
+case $input in
+    [Yy]*) 
+            if ! dpkg -s "sudo.apt.install.calculator" > /dev/null; then
+            echo "sudo.apt.install.calculator is already uninstalled"
+            else
+                echo "Removing sudo.apt.install.calculator..."
+                sudo apt remove -y sudo.apt.install.calculator
+            fi
+            ;;
+        *)  exit 0;;
+        esac
+
+
+echo "Do you want to remove python3-pyqt6 too? [Y/n]"
+read -r input1
+case $input1 in
+    [Nn]*) exit 0;;
+        *)  
+            if ! dpkg -s "python3-pyqt6" > /dev/null; then
+            echo "python3-pyqt6 is already uninstalled"
+            else
+                echo "Removing python3-pyqt6..."
+                sudo apt remove -y python3-pyqt6
+            fi
+            if ! dpkg -s "python3-pyqt6.sip" > /dev/null; then
+                echo "python3-pyqt6 dependencies are already uninstalled"
+            else
+                echo "Removing python3-pyqt6 dependencies..."
+                sudo apt remove -y python3-pyqt6.sip
+            fi
+              ;;
+        esac
+
+exit 0
