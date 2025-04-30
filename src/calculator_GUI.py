@@ -101,8 +101,7 @@ class Window(QWidget):
             self.displayText.setFont(QFont(Configuration.font, 30))
 
         if self.secondArgument != "":
-            self.makeNumSecArg()
-            if self.secondArgument < 0:
+            if(self.secondArgument[0] == "-"):
                 self.secondArgument = str(self.secondArgument)
                 self.displayText.setText(self.firstArgument + self.operation + "(" + self.secondArgument + ")")
             else:
