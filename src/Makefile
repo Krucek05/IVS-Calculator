@@ -27,6 +27,7 @@ test:
 pack: clean
 	cd ../../ && mkdir $(TEAM)
 	cd ../../$(TEAM) && mkdir repo && cp -a ../IVS-Calculator/* ./repo
+	cd ../../$(TEAM) && cp -a ../IVS-Calculator/.git ./repo
 	make install
 	mkdir -p ../../$(TEAM)/installer
 	cd ../../$(TEAM)/installer && cp -a ../../IVS-Calculator/installer/sudo.apt.install.calculator_1.0_amd64.deb ./
