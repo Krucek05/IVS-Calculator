@@ -13,7 +13,9 @@
 ---------------------------------
 
 This is a **calculator application** developed as part of the IVS course at Brno University of technology.  .  
-Its core purpose is to **evaluate mathematical expressions** and provide  **numerical result** 
+Its core purpose is to **evaluate mathematical expressions** and provide  **numerical result**
+
+My final evaluation: 48.1/52b
 ---------------------------------
 
 ## 🌍 Environment  
